@@ -17,7 +17,7 @@ LIBFT = libft/libftprintf.a
 FILE = main.c
 #FILE = filler.c
 
-INC = -I libft
+INC = -I libft 
 
 SRC = $(FILE:%=%)
 OBJ = $(FILE:%.c=objs/%.o)

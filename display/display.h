@@ -1,7 +1,7 @@
 
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef DISPLAY_H
+# define DISPLAY_H
 
 typedef struct	s_coord
 {
@@ -9,7 +9,5 @@ typedef struct	s_coord
 	int			y;
 	char		player;
 }				t_coord;
-
-
 
 # endif
