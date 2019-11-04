@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/04 05:07:24 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/04 05:16:12 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void init_tab(t_coord *tab, t_p *p)
 
 void hardcode()
 {
-
+	//hardcode for test display
 
 }
 
@@ -33,12 +33,16 @@ void parser()
 {
 	get_next_line()
 	{
-		
+		//just get grid size for the moment and go test display
 	}
 }
 
 int	main()
 {
-	parser();
+	t_p p;
+	//init struct ect
+	parser(); //create grid
+	hardcode(); //fill grid
+	display(&p); //print 
 	return (0);
 }
