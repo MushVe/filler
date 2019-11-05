@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:15:34 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*adjust_sign(char *res, char *it, t_p *p)
+char	*adjust_sign(char *res, char *it, t_pf *p)
 {
 	if ((p->op_diese == 1 && p->flag != 'c') || p->flag == 'p')
 	{
@@ -33,7 +33,7 @@ char	*adjust_sign(char *res, char *it, t_p *p)
 	return (res);
 }
 
-char	*adjust_width(char *res, char *it, int i, t_p *p)
+char	*adjust_width(char *res, char *it, int i, t_pf *p)
 {
 	while (++i < p->op_width)
 		res = ft_strjoin("0", res, 2);
@@ -53,7 +53,7 @@ char	*adjust_width(char *res, char *it, int i, t_p *p)
 	return (res);
 }
 
-char	*add_width(char *res, t_p *p)
+char	*add_width(char *res, t_pf *p)
 {
 	int		i;
 	char	*it;

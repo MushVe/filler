@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:16:03 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*set_zero(char *res)
+static char	*set_zero(char *res)
 {
 	ft_memdel((void*)&res);
 	if (!(res = ft_strdup("\0")))
@@ -20,7 +20,7 @@ char	*set_zero(char *res)
 	return (res);
 }
 
-char	*next_process(char c, t_p *p, char *res)
+static char	*next_process(char c, t_pf *p, char *res)
 {
 	if (isflag(p->flag, p))
 	{
@@ -43,7 +43,7 @@ char	*next_process(char c, t_p *p, char *res)
 	return (res);
 }
 
-char	*first_process(char c, va_list ap, t_p *p, char *res)
+static char	*first_process(char c, va_list ap, t_pf *p, char *res)
 {
 	if (c == 'd' || c == 'i')
 	{
@@ -69,7 +69,7 @@ char	*first_process(char c, va_list ap, t_p *p, char *res)
 	return (res);
 }
 
-int		process(char c, va_list ap, t_p *p)
+int		ptf_process(char c, va_list ap, t_pf *p)
 {
 	char	*res;
 
@@ -85,7 +85,7 @@ int		process(char c, va_list ap, t_p *p)
 	if (c == 's')
 		res = get_string(c, ap);
 	res = next_process(c, p, res);
-	if (!(new_node(res, ft_strlen(res), p)))
+	if (!(ptf_new_node(res, ft_strlen(res), p)))
 		return (0);
 	return (0);
 }

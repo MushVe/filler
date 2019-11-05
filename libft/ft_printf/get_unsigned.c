@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:14:56 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-unsigned int	get_size(t_p *p, unsigned int nbr)
+unsigned int	get_size(t_pf *p, unsigned int nbr)
 {
 	if (p->op_type == 11)
 		nbr = (unsigned short)nbr;
@@ -21,7 +21,7 @@ unsigned int	get_size(t_p *p, unsigned int nbr)
 	return (nbr);
 }
 
-char			*get_uint(char c, va_list ap, t_p *p)
+char			*get_uint(char c, va_list ap, t_pf *p)
 {
 	unsigned int	nbr;
 	char			*res;

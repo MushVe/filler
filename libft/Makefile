@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cseguier <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:07:19 by cseguier          #+#    #+#              #
-#    Updated: 2019/06/27 13:42:46 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/05 04:40:34 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ FILE = 	ft_abs.c ft_atoi.c ft_bzero.c ft_capitalize.c ft_foreach.c \
 		ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c \
 		ft_strrev.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 		ft_tolower.c ft_toupper.c ft_upcase.c get_next_line.c \
-		ft_printf.c parser.c node.c flag_process.c add_stuff.c add_width.c \
-		convert.c check.c get_type.c get_double.c get_unsigned.c
+		ft_printf.c pft_parser.c pft_node.c flag_process.c add_stuff.c \
+		add_width.c convert.c check.c get_type.c get_double.c get_unsigned.c
 
 SRC = $(FILE:%=%)
 

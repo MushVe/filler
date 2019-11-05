@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:15:50 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		isflag(char c, t_p *p)
+int		isflag(char c, t_pf *p)
 {
 	if (c == 'c' || c == 's' || c == 'd' || c == 'i' || c == 'o' || c == 'p'
 		|| c == 'u' || c == 'x' || c == 'X' || c == '%')

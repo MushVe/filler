@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2019/04/11 18:23:04 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/05 05:33:01 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
-FILE = main.c
+FILE = main.c node.c display.c
 #FILE = filler.c
 
 INC = -I libft 
@@ -30,7 +30,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf
+		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf -I display/include -L display/lib -l SDL2-2.0.0
 #		@echo "\n\
 #                        ..\n\
 #                      / __)  Done.\n\

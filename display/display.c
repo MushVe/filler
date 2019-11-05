@@ -1,9 +1,9 @@
-#include <SDL.h>
+#include "display/include/SDL.h"
 #include <stdbool.h>
-#include "../libft/includes/ft_printf.h"
-#include "../libft/includes/libft.h"
+#include "libft/includes/ft_printf.h"
+#include "libft/includes/libft.h"
 #include <fcntl.h>
-#include "../filler.h"
+#include "filler.h"
 
 void set_square(SDL_Rect *square, t_coord tab, int grid_cell_size)
 {

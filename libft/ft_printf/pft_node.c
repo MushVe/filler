@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   pft_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:39:55 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	free_list(t_lst **list)
+void	ptf_free_list(t_lst **list)
 {
 	t_lst	*cpy;
 	t_lst	*tmp;
@@ -29,7 +29,7 @@ void	free_list(t_lst **list)
 	}
 }
 
-int		new_node(char *data, int size, t_p *p)
+int		ptf_new_node(char *data, int size, t_pf *p)
 {
 	t_lst	*cpy;
 	t_lst	*node;
@@ -56,7 +56,7 @@ int		new_node(char *data, int size, t_p *p)
 	return (1);
 }
 
-char	*get_node(int aim, t_p *p)
+char	*ptf_get_node(int aim, t_pf *p)
 {
 	t_lst	*cpy;
 	int		i;

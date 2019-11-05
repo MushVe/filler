@@ -59,7 +59,7 @@ static ssize_t	readfile(char **s, char **line, int fd, char *buff)
 	lu = 1;
 	while (0 < (lu = read(fd, buff, GNL_BUFF_SIZE)))
 	{
-		if (!(*s = ft_strjoin(*s, buff, 1)))
+		if (!(*s = ft_strjoin(*s, buff, 0)))
 			return (-1);
 		ft_memset(buff, 0, GNL_BUFF_SIZE + 1);
 	}

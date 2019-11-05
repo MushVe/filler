@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   pft_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:40:41 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		get_type(t_p *p, char c)
+int		get_type(t_pf *p, char c)
 {
 	if (c == 'h')
 	{
@@ -39,7 +39,7 @@ int		get_type(t_p *p, char c)
 	return (0);
 }
 
-int		getoptions(t_p *p, const char *frmt)
+int		getoptions(t_pf *p, const char *frmt)
 {
 	if (frmt[0] == '+')
 		p->op_plus = 1;
@@ -66,7 +66,7 @@ int		getoptions(t_p *p, const char *frmt)
 	return (1);
 }
 
-int		fonction(char *frmt, t_p *p, int *i, va_list ap)
+static int		ptf_fonction(char *frmt, t_pf *p, int *i, va_list ap)
 {
 	while (!(isflag(frmt[i[0]], p)) && isoption(frmt[i[0]]))
 	{
@@ -76,35 +76,35 @@ int		fonction(char *frmt, t_p *p, int *i, va_list ap)
 	}
 	if (!isflag(frmt[i[0]], p))
 		i[0]--;
-	process(frmt[i[0]], ap, p);
+	ptf_process(frmt[i[0]], ap, p);
 	i[2] = 1;
 	i[1] = i[0] + 1;
 	return (1);
 }
 
-int		get_everything(char *frmt, t_p *p, int *i, va_list ap)
+int		get_everything(char *frmt, t_pf *p, int *i, va_list ap)
 {
 	while (frmt[++i[0]])
 	{
-		init(p);
+		ptf_init(p);
 		if (i[2] == 1 && (frmt[i[0]] == '%' || frmt[i[0]] == '\0'))
 		{
 			i[2] = 0;
 			if (i[1] != i[0])
-				if (!(new_node(ft_stridup(frmt + i[1], i[0] - i[1]),
+				if (!(ptf_new_node(ft_stridup(frmt + i[1], i[0] - i[1]),
 					i[0] - i[1], p)))
 					return (0);
 		}
 		else if (i[2] == 0)
 		{
-			if (!(fonction(frmt, p, i, ap)))
+			if (!(ptf_fonction(frmt, p, i, ap)))
 				return (0);
 		}
 	}
 	return (1);
 }
 
-int		parser(const char *restrict frmt, t_p *p, va_list ap)
+int		ptf_parser(const char *restrict frmt, t_pf *p, va_list ap)
 {
 	int	i[3];
 
@@ -114,8 +114,9 @@ int		parser(const char *restrict frmt, t_p *p, va_list ap)
 	if (!(get_everything((char *)frmt, p, i, ap)))
 		return (0);
 	if (i[1] != i[0] && frmt[i[0] - 1] != '%')
-		if (!(new_node(ft_stridup(frmt + i[1], i[0] - i[1]), i[0] - i[1], p)))
+		if (!(ptf_new_node(ft_stridup(frmt + i[1], i[0] - i[1]),
+			i[0] - i[1], p)))
 			return (0);
-	i[0] = print_node(p);
+	i[0] = ptf_print_node(p);
 	return (i[0]);
 }

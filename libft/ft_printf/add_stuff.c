@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:15:43 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*add_preci(char *res, t_p *p, char c)
+char	*add_preci(char *res, t_pf *p, char c)
 {
 	int		i;
 	char	*it;
@@ -37,7 +37,7 @@ char	*add_preci(char *res, t_p *p, char c)
 	return (res);
 }
 
-char	*add_x(char *res, char c, t_p *p)
+char	*add_x(char *res, char c, t_pf *p)
 {
 	if (!(ft_strcmp(res, "0")) && c != 'p')
 	{
@@ -54,7 +54,7 @@ char	*add_x(char *res, char c, t_p *p)
 	return (res);
 }
 
-char	*add_sign(char *res, t_p *p)
+char	*add_sign(char *res, t_pf *p)
 {
 	if (ft_strchr(res, '-'))
 		return (res);

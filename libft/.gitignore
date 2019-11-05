@@ -1,5 +1,0 @@
-*.o
-*.a
-printf
-printf.dSYM
-.vscode/

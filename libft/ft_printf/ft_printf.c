@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/05 04:14:26 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **	void	va_end(va_list ap);
 */
 
-int		print_node(t_p *p)
+int		ptf_print_node(t_pf *p)
 {
 	t_lst	*cpy;
 	int		i;
@@ -40,7 +40,7 @@ int		print_node(t_p *p)
 	return (i);
 }
 
-void	init(t_p *p)
+void	ptf_init(t_pf *p)
 {
 	p->op_plus = 0;
 	p->op_less = 0;
@@ -57,13 +57,13 @@ void	init(t_p *p)
 
 int		ft_printf(const char *restrict format, ...)
 {
-	t_p		p;
+	t_pf	p;
 	va_list	ap;
 	int		i;
 
 	va_start(ap, format);
 	p.first = NULL;
-	i = parser(format, &p, ap);
-	free_list(&p.first);
+	i = ptf_parser(format, &p, ap);
+	ptf_free_list(&p.first);
 	return (i);
 }
