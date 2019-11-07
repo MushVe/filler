@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/05 06:43:40 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/07 06:21:57 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct			s_coord
 typedef struct			s_lst_coord
 {
 	struct s_coord		*tab;
+	int					last;
 	struct s_lst_coord	*next;
 }						t_lst_coord;
 
@@ -37,6 +38,7 @@ typedef struct			s_p
 
 int		display(t_p *p);
 int		new_node(t_coord *tab, t_p *p);
-void init_tab(t_coord *tab, t_p *p);
+void 	init_tab(t_coord *tab, t_p *p);
+void	printlist(t_p *p);
 
 #endif

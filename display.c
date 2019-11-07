@@ -1,6 +1,5 @@
 #include "display/include/SDL.h"
 #include <stdbool.h>
-#include "libft/includes/ft_printf.h"
 #include "libft/includes/libft.h"
 #include <fcntl.h>
 #include "filler.h"
@@ -23,11 +22,10 @@ int display(t_p *p)
 	int window_height = (grid_height * grid_cell_size) + 1;
 	
 	int i;
+	int valid = 1;
 
-	ft_printf("999\n");
 	t_lst_coord	*cpy;
 	cpy = p->first;
-	ft_printf("AAA\n");
 
 	SDL_Color background = {20, 20, 20, 255}; 
 	SDL_Color grid_line_color = {70, 70, 70, 255};
@@ -36,27 +34,19 @@ int display(t_p *p)
 	SDL_Color o_square_color = {200, 200, 22, 255};
 	SDL_Color o_old_square_color = {100, 100, 22, 255};
 
-	ft_printf("BBB\n");
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Initialize SDL: %s", SDL_GetError());
 		return EXIT_FAILURE;
 	}
 
-	ft_printf("CCC\n");
-
 	SDL_Window *window;
 	SDL_Renderer *renderer;
-
-	ft_printf("DDD\n");
 
 	if (SDL_CreateWindowAndRenderer(window_width, window_height, 0, &window, &renderer) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Create window & renderer: %s", SDL_GetError());
 		return EXIT_FAILURE;
 	}
-
-	ft_printf("EEE\n");
 
 	SDL_SetWindowTitle(window, "SDL Grid");
 
@@ -66,8 +56,6 @@ int display(t_p *p)
 	SDL_Rect o_square;
 	SDL_Rect x_old_square;
 	SDL_Rect o_old_square;
-
-	ft_printf("444\n");
 
 	while (!quit) 
 	{
@@ -83,8 +71,6 @@ int display(t_p *p)
 				break;
 			}
 		}
-
-	ft_printf("555\n");
 
 		i = -1;
 		while (cpy->tab[++i].player != -1)
@@ -115,8 +101,6 @@ int display(t_p *p)
 			}
 		}
 
-	ft_printf("666\n");
-
 		SDL_SetRenderDrawColor(renderer, grid_line_color.r, grid_line_color.g, grid_line_color.b, grid_line_color.a);
 		for (int x = 0; x < 1 + grid_width * grid_cell_size; x += grid_cell_size) 
 			SDL_RenderDrawLine(renderer, x, 0, x, window_height);
@@ -124,12 +108,15 @@ int display(t_p *p)
 			SDL_RenderDrawLine(renderer, 0, y, window_width, y);
 		SDL_RenderPresent(renderer);
 				SDL_Delay(1000);
-		cpy = cpy->next;
-
-	ft_printf("777\n");
+		//if last node stop and stay on last node
+		if (valid)
+			cpy = cpy->next;
+		if (valid == 2)
+			valid = 0;
+		if (valid && cpy->last)
+			valid = 2;
 	}
 
-	ft_printf("888\n");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
