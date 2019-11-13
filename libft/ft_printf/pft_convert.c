@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert.c                                          :+:      :+:    :+:   */
+/*   pft_convert.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/29 14:01:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 01:42:49 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	nbr_signed(long long n, long long i, char *s)
 	s[i] = (max == 1 ? ((n % 10) + '1') : ((n % 10) + '0'));
 }
 
-char		*convert_signed(long long n)
+char		*pft_convert_signed(long long n)
 {
 	char		*str;
 	long long	cpt;
@@ -62,7 +62,7 @@ static void	nbr_unsigned(unsigned long long n, int i, char *s)
 	s[i] = (((n % 10) + '0'));
 }
 
-char		*convert_unsigned(unsigned long long n)
+char		*pft_convert_unsigned(unsigned long long n)
 {
 	char				*str;
 	unsigned long long	cpt;

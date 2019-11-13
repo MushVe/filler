@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/07 07:20:49 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 04:02:10 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void init_tab(t_coord *tab, t_p *p)
 {
-	int i = 0;
-	while (++i < p->board_size)
+	size_t	i = 0;
+	while (++i < p->size)
 	{
 		tab[i].x = -1;
 		tab[i].y = -1;
@@ -29,13 +29,13 @@ int	main()
 
 	//init struct ect
 	p.first = NULL;
-	p.board_size = 0;
-	ft_printf("Very start\n");
+	p.size = 0;
+//	ft_printf("Very start\n");
 	parser(&p); //create and fill grid
-	ft_printf("Grid created and filled\n");
-//	ft_printf("%d\n", p.board_size);
+//	ft_printf("Grid created and filled\n");
+//	ft_printf("size = %d\n", p.size);
 //	printlist(&p);
-//	display(&p); //print 
-	ft_printf("End and OK\n");
+	display(&p); //print 
+//	ft_printf("End and OK\n");
 	return (0);
 }

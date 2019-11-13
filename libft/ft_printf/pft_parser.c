@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/05 04:40:41 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 01:46:11 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int		getoptions(t_pf *p, const char *frmt)
 
 static int		ptf_fonction(char *frmt, t_pf *p, int *i, va_list ap)
 {
-	while (!(isflag(frmt[i[0]], p)) && isoption(frmt[i[0]]))
+	while (!(pft_isflag(frmt[i[0]], p)) && pft_isoption(frmt[i[0]]))
 	{
 		if (!(getoptions(p, frmt + i[0])))
 			return (0);
 		i[0]++;
 	}
-	if (!isflag(frmt[i[0]], p))
+	if (!(pft_isflag(frmt[i[0]], p)))
 		i[0]--;
 	ptf_process(frmt[i[0]], ap, p);
 	i[2] = 1;

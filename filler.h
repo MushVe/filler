@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/07 07:02:48 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 02:18:24 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct			s_lst_coord
 typedef struct			s_p
 {
 	struct s_lst_coord	*first;
-	int					board_size;
 	char				player_token;
+	size_t				size;
+	size_t				cpt;
 
 }						t_p;
 
 int		display(t_p *p);
-void 	parser(t_p *p);
+int 	parser(t_p *p);
 int		new_node(t_coord *tab, t_p *p);
 void 	init_tab(t_coord *tab, t_p *p);
 void	printlist(t_p *p);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_unsigned.c                                     :+:      :+:    :+:   */
+/*   pft_get_unsigned.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/05 04:14:56 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 01:50:04 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-unsigned int	get_size(t_pf *p, unsigned int nbr)
+unsigned int	pft_get_size(t_pf *p, unsigned int nbr)
 {
 	if (p->op_type == 11)
 		nbr = (unsigned short)nbr;
@@ -21,13 +21,13 @@ unsigned int	get_size(t_pf *p, unsigned int nbr)
 	return (nbr);
 }
 
-char			*get_uint(char c, va_list ap, t_pf *p)
+char			*pft_get_uint(char c, va_list ap, t_pf *p)
 {
 	unsigned int	nbr;
 	char			*res;
 
 	nbr = va_arg(ap, unsigned int);
-	nbr = get_size(p, nbr);
+	nbr = pft_get_size(p, nbr);
 	if (c == 'x' || c == 'p')
 	{
 		if (!(res = ft_itoa_base(nbr, 16, 1)))
@@ -43,12 +43,12 @@ char			*get_uint(char c, va_list ap, t_pf *p)
 		if (!(res = ft_itoa_base(nbr, 8, 1)))
 			return (0);
 	}
-	else if (!(res = convert_unsigned((unsigned long long)nbr)))
+	else if (!(res = pft_convert_unsigned((unsigned long long)nbr)))
 		return (0);
 	return (res);
 }
 
-char			*get_ulong(char c, va_list ap)
+char			*pft_get_ulong(char c, va_list ap)
 {
 	unsigned long	nbr;
 	char			*res;
@@ -69,12 +69,12 @@ char			*get_ulong(char c, va_list ap)
 		if (!(res = ft_itoa_base(nbr, 8, 1)))
 			return (0);
 	}
-	else if (!(res = convert_unsigned((unsigned long long)nbr)))
+	else if (!(res = pft_convert_unsigned((unsigned long long)nbr)))
 		return (0);
 	return (res);
 }
 
-char			*get_ulonglong(char c, va_list ap)
+char			*pft_get_ulonglong(char c, va_list ap)
 {
 	unsigned long long	nbr;
 	char				*res;
@@ -95,7 +95,7 @@ char			*get_ulonglong(char c, va_list ap)
 		if (!(res = ft_itoa_base(nbr, 8, 1)))
 			return (0);
 	}
-	else if (!(res = convert_unsigned((unsigned long long)nbr)))
+	else if (!(res = pft_convert_unsigned((unsigned long long)nbr)))
 		return (0);
 	return (res);
 }

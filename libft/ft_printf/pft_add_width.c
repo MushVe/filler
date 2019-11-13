@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_width.c                                        :+:      :+:    :+:   */
+/*   pft_add_width.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:01:55 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/05 04:15:34 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 01:42:26 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*adjust_sign(char *res, char *it, t_pf *p)
+static char	*pft_adjust_sign(char *res, char *it, t_pf *p)
 {
 	if ((p->op_diese == 1 && p->flag != 'c') || p->flag == 'p')
 	{
@@ -33,7 +33,7 @@ char	*adjust_sign(char *res, char *it, t_pf *p)
 	return (res);
 }
 
-char	*adjust_width(char *res, char *it, int i, t_pf *p)
+static char	*pft_adjust_width(char *res, char *it, int i, t_pf *p)
 {
 	while (++i < p->op_width)
 		res = ft_strjoin("0", res, 2);
@@ -42,7 +42,7 @@ char	*adjust_width(char *res, char *it, int i, t_pf *p)
 		it[0] = '0';
 		res[0] = '-';
 	}
-	res = adjust_sign(res, it, p);
+	res = pft_adjust_sign(res, it, p);
 	if (p->op_space == 1 && p->flag != 'c' && p->flag != 'u'
 			&& !(ft_strchr(res, '-')))
 	{
@@ -53,7 +53,7 @@ char	*adjust_width(char *res, char *it, int i, t_pf *p)
 	return (res);
 }
 
-char	*add_width(char *res, t_pf *p)
+char	*pft_add_width(char *res, t_pf *p)
 {
 	int		i;
 	char	*it;
@@ -67,7 +67,7 @@ char	*add_width(char *res, t_pf *p)
 			res = ft_strjoin(res, " ", 1);
 	else if ((p->op_zero == 1 && p->op_preci == 0)
 		&& !(p->flag == 'p' && p->op_point == 1 && p->op_preci == 0))
-		res = adjust_width(res, it, i, p);
+		res = pft_adjust_width(res, it, i, p);
 	else
 		while (++i < p->op_width)
 			res = ft_strjoin(" ", res, 2);

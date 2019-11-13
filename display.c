@@ -109,7 +109,8 @@ int display(t_p *p)
 		SDL_RenderPresent(renderer);
 				SDL_Delay(1000);
 		//if last node stop and stay on last node
-		if (valid)
+	
+		if (valid && !(cpy->last))
 			cpy = cpy->next;
 		if (valid == 2)
 			valid = 0;
