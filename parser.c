@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/13 04:03:11 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 06:30:00 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,41 @@ size_t	get_content(char *line, t_coord *tab, t_p *p)
 	size_t	i;
 	i = -1;
 
-//	ft_printf("i: ");
 	while (line[++i] != '\0')
 	{
-	//	ft_printf("%d, ", i);
 		if (!(ft_isdigit(line[i])) && line[i] != ' ' && line[i] != '.')
 		{
-		//	ft_printf("\nGet info: c: %c\tx: %d\ty: %d\t",
-		//		line[i], i-4, ft_atoi(line));
 			tab[p->cpt].player = line[i];
 			tab[p->cpt].x = (i - 4) + p->cpt;
 			tab[p->cpt].y = ft_atoi(line);
 			p->cpt++;
-//	ft_printf("cpt?? %d\n", p->cpt);
-
-//	ft_printf("info ok\n");
 		}
 	}
 	return (p->cpt);
+}
+
+int	get_piece_size(char *line, t_p *p)
+{
+	size_t	i;
+	
+	i = -1;
+	while (!(ft_isdigit(line[++i]))) ;
+	p->p_len = ft_atoi(line + i);
+	while (line[++i] != ' ') ;
+	p->p_hig = ft_atoi(line + i);
+	if (!(p->p_data = (int*)ft_memalloc(sizeof(int) * p->p_len * p->p_hig)))
+		return (0);
+	return (0);
+}
+
+int	get_piece_data(char *line, t_p *p)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i] != '\0')
+		p->p_data[i + p->p_it] = line[i];
+	return (i);
 }
 
 int	parser(t_p *p)
@@ -59,7 +76,6 @@ int	parser(t_p *p)
 	t_coord		*tab;
 
 	i = 1;
-	p->cpt = 0;
 	line = NULL;
 //	ft_printf("Parser go in\n");
 	if (-1 == (fd = open("camO", O_RDONLY)))
@@ -88,19 +104,41 @@ int	parser(t_p *p)
 			init_tab(tab, p);
 		//	ft_printf("Init Tab ok\n");
 		}
-		if (ft_strstr(line, "<got"))
-		{
-			new_node(tab, p);
-			return (0);
-		}
-		
 		if (ft_isdigit(line[0]))
 		{
 			p->cpt = get_content(line, tab, p);
 		//	ft_printf("Gotcha content\n");
 		}
-		free(line);
+		ft_printf("h: %d\n", p->p_hig);
+		if (p->p_hig > 1)
+		{
+			p->p_it = get_piece_data(line, p);
+			p->p_hig--;
+		}
+		if (ft_strstr(line, "Piece"))
+		{
+			ft_printf("is piece\n");
+			new_node(tab, p);
+			ft_printf("uh\n");
+			get_piece_size(line, p);
+		}
+		ft_memdel((void*)&line);
 	}
+	for (int i = 0; i < 2*3; i++)
+		ft_printf("%c ", p->p_data[i]);
 	new_node(tab, p);
 	return (0);
 }
+
+
+//  012
+//  345
+
+//     y = i / largeur
+//     x = i - (largeur * y)
+
+//   0  1  2  3  4  5  6
+//   7  8  9 10 11 12 13
+//  14 15 16 17 18 19 20
+
+     

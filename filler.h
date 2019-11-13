@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/13 02:18:24 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 06:29:03 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ typedef struct			s_p
 {
 	struct s_lst_coord	*first;
 	char				player_token;
+	int					p_len;
+	int					p_hig;
+	int					p_it;
+	int					*p_data;
 	size_t				size;
 	size_t				cpt;
 

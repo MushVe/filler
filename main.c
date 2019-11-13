@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/13 04:02:10 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/13 06:30:19 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main()
 	//init struct ect
 	p.first = NULL;
 	p.size = 0;
+	p.cpt = 0;
+	p.p_it = 0;
 //	ft_printf("Very start\n");
 	parser(&p); //create and fill grid
 //	ft_printf("Grid created and filled\n");
