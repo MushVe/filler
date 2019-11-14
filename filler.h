@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/13 06:29:03 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/14 05:07:46 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef struct			s_p
 	int					p_len;
 	int					p_hig;
 	int					p_it;
-	int					*p_data;
+	char				*p_data;
+	char				*board;
+	size_t				board_len;
+	size_t				board_hig;
 	size_t				size;
 	size_t				cpt;
 
@@ -48,5 +51,8 @@ int 	parser(t_p *p);
 int		new_node(t_coord *tab, t_p *p);
 void 	init_tab(t_coord *tab, t_p *p);
 void	printlist(t_p *p);
+int		get_piece_size(char *line, t_p *p);
+int		get_piece_data(char *line, t_p *p);
+int		put_piece(t_p *p);
 
 #endif

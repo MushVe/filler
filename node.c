@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 03:47:45 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/13 06:13:25 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/14 04:31:32 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,28 @@ int		new_node(t_coord *tab, t_p *p)
 	return (1);
 }
 
-// void	printlist(t_p *p)
-// {
-// 	t_lst_coord	*cpy;
-// 	int			i;
+void	printlist(t_p *p)
+{
+	t_lst_coord	*cpy;
+	int			i;
 
 
-// 	ft_printf("NOW PRINT\n");
-// 	cpy = p->first;
-// 	while (cpy)
-// 	{
-// 		i = -1;
-// 		while (cpy->tab[++i].player != -1)
-// 		{
-// 			ft_printf("i: %d\t", i);
-// 			ft_printf("x: %d\t", cpy->tab[i].x);
-// 			ft_printf("y: %d\t", cpy->tab[i].y);
-// 			ft_printf("p: %d\t", cpy->tab[i].player);
-// 			ft_printf("last: %d\n", cpy->last);
-// 		}
-// 		cpy = cpy->next;
-// 	}
-// }
+	ft_printf("NOW PRINT\n");
+	cpy = p->first;
+	while (cpy)
+	{
+		i = -1;
+		while (cpy->tab[++i].player != -1)
+		{
+			ft_printf("i: %d\t", i);
+			ft_printf("x: %d\t", cpy->tab[i].x);
+			ft_printf("y: %d\t", cpy->tab[i].y);
+			ft_printf("p: %d\t", cpy->tab[i].player);
+			ft_printf("last: %d\n", cpy->last);
+		}
+		cpy = cpy->next;
+	}
+}
 
 
 // char	*get_node(int aim, t_p *p)
