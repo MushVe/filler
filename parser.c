@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 03:12:50 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/15 04:49:48 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	parser(t_p *p)
 			p->p_it = get_piece_data(line, p);
 			p->p_hig--;
 		}
-		if (p->p_it != 0 && p->p_hig == 0)
+		if (p->my&& p->p_hig == 0)
 		{
 			res = put_piece(p);
 			res_y = res / p->board_len;
