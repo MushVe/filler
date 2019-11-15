@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 02:08:40 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/15 04:58:18 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,10 @@ void	init(t_p *p)
 int	main()
 {
 	t_p p;
-	
-	//init struct ect
+
 	init(&p);
-//	ft_printf("Very start\n");
-	parser(&p); //create and fill grid
-//	ft_printf("Grid created and filled\n");
-//	ft_printf("size = %d\n", p.size);
+	parser(&p);
 //	printlist(&p);
-	display(&p); //print
-	
-//	ft_printf("End and OK\n");
+	display(&p);
 	return (0);
 }
