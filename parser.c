@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/14 05:27:35 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/15 03:12:50 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int	parser(t_p *p)
 	int			fd;
 	size_t		i;
 	t_coord		*tab;
+	int res;
+	int res_y;
+	int	res_x;
 
 	i = 1;
 	line = NULL;
@@ -58,14 +61,21 @@ int	parser(t_p *p)
 		return (0);
 	}
 	while (0 < (i = get_next_line(fd, &line)))
+	//while (0 < (i = get_next_line(0, &line)))
 	{
 	// ft_printf(line);
 		if (ft_strstr(line, "$$$ exec p1"))
 		{
 			if (ft_strstr(line, "cseguier"))
+			{
 				p->player_token = 'o';
+				p->my_turn == 1;
+			}
 			else
+			{
 				p->player_token = 'x';
+				p->my_turn == 0;
+			}
 		//	ft_printf("Gotcha player\n");
 		}
 		if (p->size == 0 && ft_strstr(line, "Plateau"))
@@ -85,20 +95,28 @@ int	parser(t_p *p)
 		}
 		if (p->p_hig > 0)
 		{
-			ft_printf("h: %d\n", p->p_hig);
+			// ft_printf("h: %d\n", p->p_hig);
 			p->p_it = get_piece_data(line, p);
 			p->p_hig--;
 		}
+		if (p->p_it != 0 && p->p_hig == 0)
+		{
+			res = put_piece(p);
+			res_y = res / p->board_len;
+			res_x = res - (p->board_len * res_y);
+			ft_printf("%d %d\n", res_x, res_y);
+		}
 		if (ft_strstr(line, "Piece"))
 		{
-			ft_printf("is piece\n");
+			// ft_printf("is piece\n");
 			new_node(tab, p);
-			ft_printf("uh\n");
+			// ft_printf("uh\n");
 			get_piece_size(line, p);
 		}
 		ft_memdel((void*)&line);
+
 	}
-	ft_printf("data piece : %s\n", p->p_data);
+//	ft_printf("data piece : %s\n", p->p_data);
 //	new_node(tab, p);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/14 05:32:45 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/15 01:53:31 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	get_piece_data(char *line, t_p *p)
 	int	i;
 
 	i = -1;
-	ft_printf("hey?\n");
+	// ft_printf("hey?\n");
 	while (line[++i] != '\0')
 	{
-		ft_printf("i: %d, it: %d\n", i, p->p_it);
+		// ft_printf("i: %d, it: %d\n", i, p->p_it);
 		p->p_data[i + p->p_it] = line[i];
 	}
-	ft_printf("uuwuu?\n");
+	// ft_printf("uuwuu?\n");
 	return (i);
 }
 
@@ -46,13 +46,13 @@ void	fill_board(t_p *p)
 	t_lst_coord	*cpy;
 	size_t		i;
 
-	ft_printf("size: %d\n", p->size);
+	// ft_printf("size: %d\n", p->size);
 	if (!(p->board = (char*)ft_memalloc(sizeof(char) * p->size)))
 		return ;
 	i = -1;
 	while (++i < p->size)
 	{
-		ft_printf("wesh i: %d\n", i);
+		// ft_printf("wesh i: %d\n", i);
 		p->board[i] = '.';
 	}
 	cpy = p->first;
@@ -64,20 +64,43 @@ void	fill_board(t_p *p)
 
 int	put_piece(t_p *p)
 {
-	int	i;
+	int	i_board;
+	int	i_piece;
+	int	a;
+	int	b;
+	int	x; //	x = i_board - (p->board_len * y)
+	int	y; //	y = i_board / p->board_len
 
-	i = -1;
 	fill_board(p);
-	ft_printf("print?\n%s\n", p->board);
-	for (size_t i = 0; i < p->board_hig; i++)
+	// ft_printf("print?\n%s\n", p->board);
+	// for (size_t i = 0; i < p->board_hig; i++) {
+	// 	for (size_t j = 0; j < p->board_len; j++)
+	// 		ft_putchar(p->board[(i * p->board_len) + j]);
+	// 	ft_putchar('\n');
+	// }
+
+	i_board = -1;
+	while (p->board[++i_board])
 	{
-		for (size_t j = 0; j < p->board_len; j++)
+		i_piece = -1;
+		a = 0;
+		b = 0;
+		y = i_board / p->board_len;
+		x = i_board - (p->board_len * y);
+		while (p->p_data[++i_piece])
 		{
-			ft_putchar(p->board[(i * p->board_len) + j]);
+			if (p->p_data[i_piece] == '*'
+				&& p->board[(x + (y * p->board_len)) + i_piece] == p->player_token)
+				a++;
+			if (p->p_data[i_piece] == '*'
+				&& p->board[(x + (y * p->board_len)) + i_piece] != '.'
+				&& p->board[(x + (y * p->board_len)) + i_piece] != p->player_token)
+				b++;
 		}
-		ft_putchar('\n');
+		if (a == 1 && b == 0)
+			return (i_board);
 	}
-	
+
 
 
 	// while (++i < p->size)

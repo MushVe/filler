@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/14 05:07:46 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/15 01:31:32 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_p
 	int					p_len;
 	int					p_hig;
 	int					p_it;
+	int					valid;
 	char				*p_data;
 	char				*board;
 	size_t				board_len;
