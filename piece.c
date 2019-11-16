@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 05:56:16 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/16 02:17:34 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	get_piece_size(char *line, t_p *p)
 	
 	i = -1;
 	while (!(ft_isdigit(line[++i]))) ;
-	p->p_len = ft_atoi(line + i);
-	while (line[++i] != ' ') ;
 	p->p_hig = ft_atoi(line + i);
+	while (line[++i] != ' ') ;
+	p->p_len = ft_atoi(line + i);
 	if (!(p->p_data = (char*)ft_memalloc(sizeof(char) * p->p_len * p->p_hig)))
 		return (0);
 	return (0);
@@ -33,7 +33,7 @@ int	get_piece_data(char *line, t_p *p)
 	i = -1;
 	while (line[++i] != '\0')
 		p->p_data[i + p->p_it] = line[i];
-	ft_printf("\t\tDATA?? %s\n", p->p_data);
+	//ft_printf("\t\tDATA?? %s\n", p->p_data);
 	return (i);
 }
 
@@ -73,19 +73,20 @@ int	put_piece(t_p *p)
 		b = 0;
 		y = i_board / p->board_len;
 		x = i_board - (p->board_len * y);
-		ft_printf("i_board: %d, x: %d, y: %d\n", i_board, x, y);
-		ft_printf("\tpdata: %c\n", p->p_data[0]);
+		//ft_printf("i_board: %d, x: %d, y: %d\n", i_board, x, y);
 		while (p->p_data[++i_piece])
 		{
-			ft_printf("i_piece: %d\n", i_piece);
+			//ft_printf("\tpdata: %c\n", p->p_data[i_piece]);
+			//ft_printf("i_piece: %d\n", i_piece);
+			//ft_printf("\t\ti_board: %d\n", x + (y * p->board_len));
 			if (p->p_data[i_piece] == '*'
-				&& p->board[(x + (y * p->board_len)) + i_piece]
-					== p->player_token)
+				&& (p->board[(x + (y * p->board_len)) + i_piece] == p->player_token
+				|| (p->board[(x + (y * p->board_len)) + i_piece] == p->player_token - 32)))
 				a++;
 			if (p->p_data[i_piece] == '*'
 				&& p->board[(x + (y * p->board_len)) + i_piece] != '.'
-				&& p->board[(x + (y * p->board_len)) + i_piece]
-					!= p->player_token)
+				&& (p->board[(x + (y * p->board_len)) + i_piece] != p->player_token
+				&& (p->board[(x + (y * p->board_len)) + i_piece] != p->player_token - 32)))
 				b++;
 		//	ft_printf("a: %d, b: %d\n", a, b);
 		}
@@ -95,7 +96,7 @@ int	put_piece(t_p *p)
 			return (i_board);
 		}
 	}
-	ft_printf("RETURN 0\n");
+	//ft_printf("RETURN 0\n");
 	return (0);
 }
 

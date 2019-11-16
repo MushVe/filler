@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 04:58:18 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/16 01:50:37 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int	main()
 	init(&p);
 	parser(&p);
 //	printlist(&p);
-	display(&p);
+//	display(&p);
 	return (0);
 }

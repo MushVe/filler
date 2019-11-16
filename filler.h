@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 04:56:10 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/16 02:38:27 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/includes/ft_printf.h"
 # include <fcntl.h>
+#include <stdio.h>
 
 typedef struct			s_coord
 {

@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 06:01:40 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/16 02:50:01 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,21 @@ int parser(t_p *p)
 	size_t i;
 	t_coord *tab;
 	int res;
-	int res_y;
-	int res_x;
+	// int res_y;
+	// int res_x;
 
 	i = 1;
 	line = NULL;
 	
-	int fd;
-	if (-1 == (fd = open("camO", O_RDONLY)))
-		return (0);
-	while (0 < (i = get_next_line(fd, &line)))
-	//while (0 < (i = get_next_line(0, &line)))
+//	int fd;
+//	if (-1 == (fd = open("camO", O_RDONLY)))
+//		return (0);
+//	while (0 < (i = get_next_line(fd, &line)))
+	while (0 < (i = get_next_line(0, &line)))
 	{
-	//	ft_printf("WAIIIIII\n");
+		//ft_printf("WAIIIIII\n");
+		if (ft_strstr(line, " fin: "))
+			return (0);
 		if (ft_strstr(line, "$$$ exec p1"))
 		{
 			if (ft_strstr(line, "cseguier"))
@@ -89,26 +91,33 @@ int parser(t_p *p)
 			get_board(line, tab, p);
 		if (p->p_hig > 0)
 		{
-			ft_printf("get piece h: %d, line: %s\n", p->p_hig, line);
+			//ft_printf("get piece h: %d, line: %s\n", p->p_hig, line);
 			p->p_it = get_piece_data(line, p);
 			p->p_hig--;
 		}
-		if (p->my_turn && p->p_hig == 0 && p->p_it)
+		if (p->my_turn == 1 && p->p_hig == 0 && p->p_it != 0)
 		{
 			p->p_it = 0;
 			p->my_turn = 0;
-			ft_printf("put piece\n");
+			
+			write(1, "2", 1);
+			write(1, " ", 1);
+			write(1, "8", 1);
+			write(1, "\n", 1);
+			
 			res = put_piece(p);
 		//	ft_printf("res: %d, len: %d\n", res, p->board_len);
-			res_y = res / p->board_len;
-			res_x = res - (p->board_len * res_y);
-			ft_printf("%d %d\n", res_x, res_y);
+			// res_y = res / p->board_len;
+			// res_x = res - (p->board_len * res_y);
+			// ft_printf("%d %d\n", res_x, res_y);
 			ft_memdel((void *)&p->p_data);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
+			//ft_printf("size maggle? ");
 			new_node(tab, p);
 			get_piece_size(line, p);
+			//ft_printf("%d %d\n", p->p_hig, p->p_len);
 		}
 		ft_memdel((void *)&line);
 	}

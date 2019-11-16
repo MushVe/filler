@@ -15,8 +15,8 @@ void set_square(SDL_Rect *square, t_coord tab, int grid_cell_size)
 int display(t_p *p)
 {
 	int grid_cell_size = 20;
-	int grid_width = 17;
-	int grid_height = 15;
+	int grid_width = p->board_hig;
+	int grid_height = p->board_len;
 
 	int window_width = (grid_width * grid_cell_size) + 1;
 	int window_height = (grid_height * grid_cell_size) + 1;
