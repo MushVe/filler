@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
+#    By: snedir <snedir@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2019/11/14 01:47:34 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/16 05:37:10 by snedir           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
-FILE = main.c node.c display.c parser.c piece.c
+FILE = main.c node.c parser.c piece.c
 #FILE = filler.c
 
 INC = -I libft 
@@ -30,7 +30,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf -I display/include -L display/lib -l SDL2-2.0.0
+		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf
 #		@echo "\n\
 #                        ..\n\
 #                      / __)  Done.\n\

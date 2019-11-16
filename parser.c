@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: snedir <snedir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/16 02:50:01 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/16 05:45:42 by snedir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int parser(t_p *p)
 	size_t i;
 	t_coord *tab;
 	int res;
-	// int res_y;
-	// int res_x;
+	int res_y;
+	int res_x;
 
 	i = 1;
 	line = NULL;
@@ -100,16 +100,11 @@ int parser(t_p *p)
 			p->p_it = 0;
 			p->my_turn = 0;
 			
-			write(1, "2", 1);
-			write(1, " ", 1);
-			write(1, "8", 1);
-			write(1, "\n", 1);
-			
 			res = put_piece(p);
-		//	ft_printf("res: %d, len: %d\n", res, p->board_len);
-			// res_y = res / p->board_len;
-			// res_x = res - (p->board_len * res_y);
-			// ft_printf("%d %d\n", res_x, res_y);
+			// ft_printf("res: %d, len: %d\n", res, p->board_len);
+			res_y = res / p->board_len;
+			res_x = res - (p->board_len * res_y);
+			ft_printf("%d %d\n", res_y, res_x);
 			ft_memdel((void *)&p->p_data);
 		}
 		if (ft_strstr(line, "Piece"))
@@ -117,7 +112,7 @@ int parser(t_p *p)
 			//ft_printf("size maggle? ");
 			new_node(tab, p);
 			get_piece_size(line, p);
-			//ft_printf("%d %d\n", p->p_hig, p->p_len);
+			// ft_printf("%d %d\n", p->p_hig, p->p_len);
 		}
 		ft_memdel((void *)&line);
 	}
