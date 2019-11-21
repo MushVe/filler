@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/16 02:17:34 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/21 06:49:03 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	get_piece_size(char *line, t_p *p)
 	p->p_hig = ft_atoi(line + i);
 	while (line[++i] != ' ') ;
 	p->p_len = ft_atoi(line + i);
-	if (!(p->p_data = (char*)ft_memalloc(sizeof(char) * p->p_len * p->p_hig)))
+	if (!(p->p_data = (char*)ft_memalloc(sizeof(char)
+		* (p->p_len * p->p_hig) + 1)))
 		return (0);
 	return (0);
 }
@@ -29,11 +30,21 @@ int	get_piece_size(char *line, t_p *p)
 int	get_piece_data(char *line, t_p *p)
 {
 	int	i;
+	int	first;
 
+	first = -1;
 	i = -1;
 	while (line[++i] != '\0')
+	{
 		p->p_data[i + p->p_it] = line[i];
-	//ft_printf("\t\tDATA?? %s\n", p->p_data);
+		// if (line[i] == '*' )
+		// {
+		// 	if (first == -1)
+		// 		first = i;
+		// 	if(p->p_xmax < i - first)
+		// 		p->p_xmax = i - first;
+		// }	
+	}
 	return (i);
 }
 
@@ -50,9 +61,54 @@ void	fill_board(t_p *p)
 	cpy = p->first;
 	i = -1;
 	while (cpy->tab[++i].player != -1)
-		p->board[cpy->tab[i].x + (cpy->tab[i].y * p->board_len)]
+		p->board[cpy->tab[i].x + (cpy->tab[i].y * p->b_len)]
 			= cpy->tab[i].player;
 }
+
+// int	resize(char *data)
+// {
+// 	int	i;
+
+// 	i = -1;
+
+// 	// incrementer jusqu'au premier *
+// 	// memoriser debut nouvelle chaine
+// 	// incrementer jusqu'a la fin
+// 	// decrementer jusqu'au dernier *
+// 	// memoriser fin nouvelle chaine
+// 	// verifier taille derniere ligne = taille ligne la plus large
+// 	// incrementer si necessaire
+// 	// dup la nouvelle chaine
+
+// 	return (0);
+// }
+
+// int	not_too_big(int x, int y, int i_board, t_p *p)
+// {
+// 	char	*data_cpy;
+
+// 	if (!(data_cpy = ft_strdup(p->p_data)));
+// 		return (-1);
+// 	resize(data_cpy);
+
+// 	// juste check ligne la plus large ?
+// 	// et colone la plus haute ?
+// 	// dans deux while ?
+// 	// et please go recup cette valeur avant proprement dans structure
+// 	// DANS GET PIECE PUTAIN
+// 	// ALLER LA
+
+// 	int i;
+// 	int j;
+
+// 	j = -1;
+// 	while (i_board)
+
+
+
+
+// 	return (0);
+// }
 
 int	put_piece(t_p *p)
 {
@@ -60,10 +116,12 @@ int	put_piece(t_p *p)
 	int	i_piece;
 	int	a;
 	int	b;
-	int	x; //	x = i_board - (p->board_len * y)
-	int	y; //	y = i_board / p->board_len
+	int	x; //	x = i_board - (p->b_len * y)
+	int	y; //	y = i_board / p->b_len
+	int	x_inc;
+	int	y_inc;
+	int	inc;
 
-//	ft_printf("put_piece()\n");
 	fill_board(p);
 	i_board = -1;
 	while (p->board[++i_board])
@@ -71,32 +129,41 @@ int	put_piece(t_p *p)
 		i_piece = -1;
 		a = 0;
 		b = 0;
-		y = i_board / p->board_len;
-		x = i_board - (p->board_len * y);
-		//ft_printf("i_board: %d, x: %d, y: %d\n", i_board, x, y);
+		y = i_board / p->b_len;
+		x = i_board - (p->b_len * y);
+		dprintf(p->fd, "i_board: %d, x: %d, y: %d\n", i_board, x, y);
+		dprintf(p->fd, "max: %d x: %d len: %d\n", p->p_xmax, x, (int)p->b_len);
+		if (p->p_xmax + x < (int)p->b_len)
+		{
 		while (p->p_data[++i_piece])
 		{
-			//ft_printf("\tpdata: %c\n", p->p_data[i_piece]);
-			//ft_printf("i_piece: %d\n", i_piece);
-			//ft_printf("\t\ti_board: %d\n", x + (y * p->board_len));
+
+			y_inc = y + (i_piece % p->p_len);
+			x_inc = x + (i_piece / (y_inc + 1));
+			inc = (x_inc + (y_inc * p->b_len));
+			dprintf(p->fd, "\tpdata: %c ", p->p_data[i_piece]);
+			dprintf(p->fd, "board: %c", p->board[inc]);
+			dprintf(p->fd, "\ti_piece: %d", i_piece);
+			dprintf(p->fd, "\ti_board: %lu\n", x + (y * p->b_len));
 			if (p->p_data[i_piece] == '*'
-				&& (p->board[(x + (y * p->board_len)) + i_piece] == p->player_token
-				|| (p->board[(x + (y * p->board_len)) + i_piece] == p->player_token - 32)))
+				&& (p->board[inc] == p->token
+				|| (p->board[inc] == p->token - 32)))
 				a++;
 			if (p->p_data[i_piece] == '*'
-				&& p->board[(x + (y * p->board_len)) + i_piece] != '.'
-				&& (p->board[(x + (y * p->board_len)) + i_piece] != p->player_token
-				&& (p->board[(x + (y * p->board_len)) + i_piece] != p->player_token - 32)))
+				&& p->board[inc] != '.'
+				&& (p->board[inc] != p->token
+				&& (p->board[inc] != p->token - 32)))
 				b++;
-		//	ft_printf("a: %d, b: %d\n", a, b);
+			dprintf(p->fd, "a: %d, b: %d\n", a, b);
 		}
 		if (a == 1 && b == 0)
 		{
-		//	ft_printf("final a: %d, b: %d\n", a, b);
+			dprintf(p->fd, "final a: %d, b: %d\n", a, b);
 			return (i_board);
 		}
+		}
 	}
-	//ft_printf("RETURN 0\n");
+	dprintf(p->fd, "RETURN 0\n");
 	return (0);
 }
 

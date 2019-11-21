@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snedir <snedir@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/16 05:45:42 by snedir           ###   ########.fr       */
+/*   Updated: 2019/11/21 06:43:16 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ size_t get_size(char *line, t_p *p)
 	i = -1;
 	while (!(ft_isdigit(line[++i])))
 		;
-	p->board_hig = ft_atoi(line + i);
+	p->b_hig = ft_atoi(line + i);
 	while (line[++i] != ' ')
 		;
-	p->board_len = ft_atoi(line + i);
-	return (p->board_len * p->board_hig);
+	p->b_len = ft_atoi(line + i);
+	return (p->b_len * p->b_hig);
 }
 
 size_t get_board(char *line, t_coord *tab, t_p *p)
@@ -55,31 +55,26 @@ int parser(t_p *p)
 
 	i = 1;
 	line = NULL;
-	
-//	int fd;
-//	if (-1 == (fd = open("camO", O_RDONLY)))
-//		return (0);
-//	while (0 < (i = get_next_line(fd, &line)))
+
+
+		dprintf(p->fd, "aller la\n");
+	// int camo;
+	// if (-1 == (camo = open("camO", O_RDONLY)))
+	// 	return (0);
+	// while (0 < (i = get_next_line(camo, &line)))
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		//ft_printf("WAIIIIII\n");
+		dprintf(p->fd, "> %s\n", line);
 		if (ft_strstr(line, " fin: "))
 			return (0);
-		if (ft_strstr(line, "$$$ exec p1"))
+		if (ft_strstr(line, "$$$ exec"))
 		{
-			if (ft_strstr(line, "cseguier"))
-			{
-				p->player_token = 'o';
-				p->my_turn = 1;
-			}
+			if (ft_strstr(line, "p1"))
+				p->token = 'o';
 			else
-			{
-				p->player_token = 'x';
-				p->my_turn = 0;
-			}
+				p->token = 'x';
+			dprintf(p->fd, "player? %c\n", p->token);
 		}
-		if (ft_strstr(line, "<got") && p->my_turn == 0)
-			p->my_turn = 1;
 		if (p->size == 0 && ft_strstr(line, "Plateau"))
 		{
 			p->size = get_size(line, p);
@@ -91,28 +86,28 @@ int parser(t_p *p)
 			get_board(line, tab, p);
 		if (p->p_hig > 0)
 		{
-			//ft_printf("get piece h: %d, line: %s\n", p->p_hig, line);
+		//	dprintf(p->fd, "get piece h: %d, line: %s\n", p->p_hig, line);
 			p->p_it = get_piece_data(line, p);
 			p->p_hig--;
 		}
-		if (p->my_turn == 1 && p->p_hig == 0 && p->p_it != 0)
+		if (p->p_hig == 0 && p->p_it != 0)
 		{
 			p->p_it = 0;
-			p->my_turn = 0;
-			
 			res = put_piece(p);
-			// ft_printf("res: %d, len: %d\n", res, p->board_len);
-			res_y = res / p->board_len;
-			res_x = res - (p->board_len * res_y);
+			dprintf(p->fd, "res: %d, len: %d\n", res, (int)p->b_len);
+			res_y = res / p->b_len;
+			res_x = res - (p->b_len * res_y);
+			dprintf(p->fd, "\tpiece output: ");
+			dprintf(p->fd, "%d %d\n", res_y, res_x);
 			ft_printf("%d %d\n", res_y, res_x);
 			ft_memdel((void *)&p->p_data);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
-			//ft_printf("size maggle? ");
+			dprintf(p->fd, "size maggle?");
 			new_node(tab, p);
 			get_piece_size(line, p);
-			// ft_printf("%d %d\n", p->p_hig, p->p_len);
+			dprintf(p->fd, "%d %d\n", p->p_hig, p->p_len);
 		}
 		ft_memdel((void *)&line);
 	}

@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 17:07:19 by cseguier          #+#    #+#              #
-#    Updated: 2019/11/13 01:44:44 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/21 01:53:15 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,11 @@ FILE = 	ft_abs.c ft_atoi.c ft_bzero.c ft_capitalize.c ft_foreach.c \
 		ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c \
 		ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c \
 		ft_strrev.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
-		ft_tolower.c ft_toupper.c ft_upcase.c get_next_line.c \
+		ft_tolower.c ft_toupper.c ft_upcase.c get_next_line.c gnl_strjoin.c \
 		ft_printf.c pft_parser.c pft_node.c pft_flag_process.c \
 		pft_add_stuff.c pft_add_width.c pft_convert.c pft_check.c \
-		pft_get_type.c pft_get_double.c pft_get_unsigned.c
+		pft_get_type.c pft_get_double.c pft_get_unsigned.c \
+		old_get_next_line.c
 
 SRC = $(FILE:%=%)
 

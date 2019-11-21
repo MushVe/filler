@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseguier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:13:11 by cseguier          #+#    #+#             */
-/*   Updated: 2019/03/05 17:01:44 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/21 02:40:31 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define GNL_BUFF_SIZE 100
+# define GNL_BUFF_SIZE 3024
 
 typedef struct	s_list
 {
@@ -25,6 +25,15 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+
+typedef struct	s_gnl
+{
+	struct s_gnl	*next;
+	struct s_gnl	*prev;
+	char			*stock;
+	int				fd;
+}				t_gnl;
 
 int				ft_atoi(char const *str);
 int				ft_abs(int nb);
@@ -100,5 +109,8 @@ int				ft_tolower(int c);
 int				ft_toupper(int c);
 char			*ft_upcase(char *str);
 int				get_next_line(int const fd, char **line);
+int				me_get_next_line(int const fd, char **line);
+char			*ft_gnl_strjoin2(char const *s1, char const *s2);
+char			*ft_gnl_strjoinf(char *s1, char *s2);
 
 #endif

@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: snedir <snedir@student.42.fr>              +#+  +:+       +#+         #
+#    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2019/11/16 05:37:10 by snedir           ###   ########.fr        #
+#    Updated: 2019/11/21 03:55:04 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cseguier.filler
+NAME = players/cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
@@ -25,7 +25,7 @@ OBJ = $(FILE:%.c=objs/%.o)
 FLAG = -Wall -Werror -Wextra #-fsanitize=address
 CC = gcc $(FLAG) $(INC)
 
-RM = rm -f
+RM = rm -rf
 
 all: $(NAME)
 
@@ -47,7 +47,7 @@ objs/%.o: %.c
 
 clean:
 		@$(RM) $(OBJ)
-		@rm -df objs
+		@rm -rf objs
 		@make -C libft/ clean
 
 fclean: clean

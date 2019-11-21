@@ -1,4 +1,5 @@
 *.o
 *.a
 cseguier.filler
+filler.trace
 .vscode/

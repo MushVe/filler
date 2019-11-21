@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_stop_free.c                          :+:      :+:    :+:   */
+/*   old_get_next_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 16:38:31 by cseguier          #+#    #+#             */
-/*   Updated: 2019/04/09 16:35:35 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/21 01:57:15 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static char		*strc_dup_cpy(char const *src, char c)
 	dest[i] = '\0';
 	return (dest);
 }
+
+/*
+** tmp = "\0"; ??????
+*/
 
 static int		copyinline(char **line, char **s)
 {
@@ -74,7 +78,7 @@ static ssize_t	readfile(char **s, char **line, int fd, char *buff)
 	return (0);
 }
 
-int				get_next_line(int const fd, char **line)
+int				me_get_next_line(int const fd, char **line)
 {
 	static char	*s;
 	char		buff[GNL_BUFF_SIZE + 1];
