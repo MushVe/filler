@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:13:11 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/21 02:40:31 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/22 04:43:26 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int				ft_atoi(char const *str);
 int				ft_abs(int nb);
 void			ft_bzero(void *s, size_t n);
 char			*ft_capitalize(char *str);
+void			ft_doublefree(char **s);
+void 			ft_doubleprint(char **s);
 void			ft_foreach(int *tab, size_t lenght, void (*f)(int));
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
