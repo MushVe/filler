@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/22 06:23:05 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/22 06:34:03 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void get_players(char *line, t_p *p)
 	dprintf(p->fd, "player? %c\n", p->token);
 }
 
-int	get_board_init(char *line, t_coord *tab, t_p *p)
+int	get_board_init(char *line, t_coord **tab, t_p *p)
 {
 	p->size = get_size(line, p);
-	if (!(tab = (t_coord *)ft_memalloc(sizeof(t_coord) * p->size)))
+	if (!(*tab = (t_coord *)ft_memalloc(sizeof(t_coord) * p->size)))
 		return (-1);
-	init_tab(tab, p);
+	init_tab(*tab, p);
 	return (0);
 }
 
@@ -89,14 +89,16 @@ int parser(t_p *p)
 		if (ft_strstr(line, "$$$ exec"))
 			get_players(line, p);
 		if (p->size == 0 && ft_strstr(line, "Plateau"))
-			get_board_init(line, tab, p);
+			get_board_init(line, &tab, p);
 		if (ft_isdigit(line[0]))
 			get_board(line, tab, p);
 		if (p->p_cpt > 0)
 			get_piece_data(line, p);
 		if (p->p_cpt == 0 && p->p_it != 0)
 		{
+			dprintf(p->fd, "\tTAB\n");
 			ft_doubleprint(p->piece);
+			dprintf(p->fd, "\tPAS TAB\n");
 			p->p_it = 0;
 			get_true_size(p);
 			res = put_piece(p);

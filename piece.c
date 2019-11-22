@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/22 06:21:53 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/22 06:32:05 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	get_true_size(t_p *p)
 {
 	int	i;
 	
+	dprintf(p->fd, "\thoi true len\n");
 	i = -1;
 	while (p->piece[++i])
 		get_true_len(-1, i, p);
