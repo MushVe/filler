@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 03:47:45 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/15 05:02:37 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 02:49:32 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ void	printlist(t_p *p)
 	t_lst_coord	*cpy;
 	int			i;
 
-	ft_printf("NOW PRINT\n");
+	dprintf(p->fd, "NOW PRINT\n");
 	cpy = p->first;
 	while (cpy)
 	{
 		i = -1;
 		while (cpy->tab[++i].player != -1)
 		{
-			ft_printf("i: %d\t", i);
-			ft_printf("x: %d\t", cpy->tab[i].x);
-			ft_printf("y: %d\t", cpy->tab[i].y);
-			ft_printf("p: %d\t", cpy->tab[i].player);
-			ft_printf("last: %d\n", cpy->last);
+			dprintf(p->fd, "i: %d\t", i);
+			dprintf(p->fd, "x: %d\t", cpy->tab[i].x);
+			dprintf(p->fd, "y: %d\t", cpy->tab[i].y);
+			dprintf(p->fd, "p: %d\t", cpy->tab[i].player);
+			dprintf(p->fd, "last: %d\n", cpy->last);
 		}
 		cpy = cpy->next;
 	}

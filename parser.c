@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/22 06:34:03 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 03:22:05 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int parser(t_p *p)
 	tab = NULL;
 
 
-		dprintf(p->fd, "aller la\n");
+	// dprintf(p->fd, "aller la\n");
 	// int camo;
 	// if (-1 == (camo = open("camO", O_RDONLY)))
 	// 	return (0);
@@ -94,25 +94,21 @@ int parser(t_p *p)
 			get_board(line, tab, p);
 		if (p->p_cpt > 0)
 			get_piece_data(line, p);
+	//	dprintf(p->fd, "\t cpt %d . it %d\n", p->p_cpt, p->p_it);
 		if (p->p_cpt == 0 && p->p_it != 0)
 		{
-			dprintf(p->fd, "\tTAB\n");
-			ft_doubleprint(p->piece);
-			dprintf(p->fd, "\tPAS TAB\n");
+		//	ft_doubleprint(p->piece);
 			p->p_it = 0;
 			get_true_size(p);
 			res = put_piece(p);
-			dprintf(p->fd, "res: %d, len: %d\n", res, p->b_len);
 			res_y = res / p->b_len;
 			res_x = res - (p->b_len * res_y);
-			dprintf(p->fd, "\tpiece output: ");
-			dprintf(p->fd, "%d %d\n", res_x, res_y);
 			ft_printf("%d %d\n", res_x, res_y);
 			ft_doublefree(p->piece);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
-			dprintf(p->fd, "size maggle? ");
+			dprintf(p->fd, "piece size? ");
 			new_node(tab, p);
 			get_piece_size(line, p);
 			dprintf(p->fd, "%d %d\n", p->p_hig, p->p_len);
