@@ -1,4 +1,6 @@
-seed = 1048
+seed = 1360
+O: error on input
+players/cseguier.filler: Segfault at 1
 players/abanlin.filler won
 Score:
-2AGAINST172
+1AGAINST163

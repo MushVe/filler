@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2019/11/22 06:24:32 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/27 05:57:34 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = players/cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
-FILE = main.c node.c parser.c piece.c
+FILE = main.c node.c parser.c piece.c get_piece.c
 #FILE = filler.c
 
 INC = -I libft 

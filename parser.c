@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 04:25:04 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 06:29:07 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,10 @@ int parser(t_p *p)
 	char *line;
 	int i;
 	t_coord *tab;
-	int res;
-	int res_y;
-	int res_x;
 
 	i = 1;
 	line = NULL;
 	tab = NULL;
-
-
 	// dprintf(p->fd, "aller la\n");
 	// int camo;
 	// if (-1 == (camo = open("camO", O_RDONLY)))
@@ -100,19 +95,19 @@ int parser(t_p *p)
 		//	ft_doubleprint(p->piece);
 			p->p_it = 0;
 			get_true_size(p);
-			res = put_piece(p);
-			res_y = res / p->b_len;
-			res_x = res - (p->b_len * res_y);
-			dprintf(p->fd, "%d %d\n", res_y, res_x);
-			ft_printf("%d %d\n", res_y, res_x);
+			put_piece(p);
+			dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
+			ft_printf("%d %d\n", p->res_x, p->res_y);
 			ft_doublefree(p->piece);
+			ft_doublefree(p->board);
+			init(p);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 			dprintf(p->fd, "piece size? ");
 			new_node(tab, p);
 			get_piece_size(line, p);
-			dprintf(p->fd, "%d %d\n", p->p_hig, p->p_len);
+			dprintf(p->fd, "hig: %d len: %d\n", p->p_hig, p->p_len);
 		}
 		ft_memdel((void *)&line);
 	}

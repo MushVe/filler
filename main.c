@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/22 06:42:50 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 06:28:02 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	init(t_p *p)
 	p->p_len = 0;
 	p->p_hig = 0;
 	p->p_it = 0;
-	p->p_xmax = 0;
-	p->p_ymax = 0;
 	p->p_true_len = 0;
 	p->p_true_hig = 0;
+	p->res_x = 0;
+	p->res_y = 0;
 	p->valid = 0;
 	p->p_cpt = 0;
 	p->b_len = 0;
