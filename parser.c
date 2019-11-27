@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 03:22:05 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 04:25:04 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int parser(t_p *p)
 			res = put_piece(p);
 			res_y = res / p->b_len;
 			res_x = res - (p->b_len * res_y);
-			ft_printf("%d %d\n", res_x, res_y);
+			dprintf(p->fd, "%d %d\n", res_y, res_x);
+			ft_printf("%d %d\n", res_y, res_x);
 			ft_doublefree(p->piece);
 		}
 		if (ft_strstr(line, "Piece"))

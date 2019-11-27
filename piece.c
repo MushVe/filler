@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 03:21:15 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/27 04:33:42 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,30 +135,30 @@ int	put_piece(t_p *p)
 		y = i_board / p->b_len;
 		x = i_board - (p->b_len * y);
 		dprintf(p->fd, "i_board: %d, x: %d, y: %d\n", i_board, x, y);
-		dprintf(p->fd, "xmx: %d, ymx: %d, len: %d\t", p->p_xmax, p->p_ymax, p->b_len);
+		dprintf(p->fd, "xmx: %d, ymx: %d\t", p->p_true_hig, p->p_true_len);
 		dprintf(p->fd, "b_len: %d, b_hig: %d\n", p->b_len, p->b_hig);
-		if ((p->p_ymax + y < p->b_len) && (p->p_xmax + x < p->b_hig))
+		if ((p->p_true_len + x < p->b_len) && (p->p_true_hig + y < p->b_hig))
 		{
 			while (p->piece[++j_piece])
 			{
 				i_piece = -1;
 				while (p->piece[j_piece][++i_piece])
 				{
-					y_inc = y + i_piece;
-					x_inc = x + j_piece;
-					inc = (y_inc + (x_inc * p->b_len));
-					dprintf(p->fd, "data: %c", p->piece[j_piece][i_piece]);
-					dprintf(p->fd, " | %c", p->board[inc]);
-					dprintf(p->fd, " i_p: %d", i_piece);
-					dprintf(p->fd, " j_p: %d", j_piece);
-					dprintf(p->fd, " x_b: %d", x_inc);
-					dprintf(p->fd, " y_b: %d", y_inc);
-					dprintf(p->fd, " i_board: %d", inc);
+					y_inc = y + j_piece;
+					x_inc = x + i_piece;
+					inc = (x_inc + (y_inc * p->b_len));
+			dprintf(p->fd, "| %c", p->piece[j_piece][i_piece]);
+			dprintf(p->fd, " | %c", p->board[inc]);
+			dprintf(p->fd, " | i_p: %d", i_piece);
+			dprintf(p->fd, " | j_p: %d", j_piece);
+			dprintf(p->fd, " | x_b: %d", x_inc);
+			dprintf(p->fd, " | y_b: %d", y_inc);
+			dprintf(p->fd, " | i_b: %d", inc);
 					if (p->piece[j_piece][i_piece] == '*' && (p->board[inc] == p->token || (p->board[inc] == p->token - 32)))
 						a++;
 					if (p->piece[j_piece][i_piece] == '*' && p->board[inc] != '.' && (p->board[inc] != p->token && (p->board[inc] != p->token - 32)))
 						b++;
-					dprintf(p->fd, " a: %d, b: %d\n", a, b);
+					dprintf(p->fd, " | a: %d | b: %d\n", a, b);
 				}
 				}
 			if (a == 1 && b == 0)
