@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2019/11/28 00:57:47 by cseguier         ###   ########.fr        #
+#    Updated: 2019/11/28 03:32:49 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = players/cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
-FILE = main.c node.c parser.c piece.c get_piece.c # dislpay.c
+FILE = main.c node.c parser.c piece.c get_piece.c display.c
 #FILE = filler.c
 
 INC = -I libft 
@@ -27,10 +27,12 @@ CC = gcc $(FLAG) $(INC)
 
 RM = rm -rf
 
+LSDL = -I display/include -L display/lib -l SDL2-2.0.0
+
 all: $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf
+		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf $(LSDL)
 #		@echo "\n\
 #                        ..\n\
 #                      / __)  Done.\n\

@@ -6,29 +6,29 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 03:47:45 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 02:49:32 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/28 02:58:20 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-// void	free_list(t_lst_coord **list)
-// {
-// 	t_lst_coord	*cpy;
-// 	t_lst_coord	*tmp;
+void	free_list(t_lst_coord **list)
+{
+	t_lst_coord	*cpy;
+	t_lst_coord	*tmp;
 
-// 	cpy = *list;
-// 	tmp = NULL;
-// 	while (cpy)
-// 	{
-// 		tmp = cpy->next;
-// 		ft_memdel((void*)&cpy);
-// 		cpy = NULL;
-// 		cpy = tmp;
-// 	}
-// }
+	cpy = *list;
+	tmp = NULL;
+	while (cpy)
+	{
+		tmp = cpy->next;
+		ft_memdel((void*)&cpy);
+		cpy = NULL;
+		cpy = tmp;
+	}
+}
 
-t_coord		*copytab(t_coord *tab, t_p *p)
+t_coord	*copytab(t_coord *tab, t_p *p)
 {
 	t_coord	*res;
 	int		i;
@@ -93,16 +93,3 @@ void	printlist(t_p *p)
 		cpy = cpy->next;
 	}
 }
-
-
-// char	*get_node(int aim, t_p *p)
-// {
-// 	t_lst_coord	*cpy;
-// 	int		i;
-
-// 	cpy = p->first;
-// 	i = -1;
-// 	while (++i < aim && cpy)
-// 		cpy = cpy->next;
-// 	return (0);
-// }
