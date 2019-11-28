@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 00:48:38 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/28 05:18:27 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ typedef struct			s_coord
 
 typedef struct			s_lst_coord
 {
-	struct s_coord		*tab;
+	t_coord				*tab;
 	int					last;
-	struct s_lst_coord	*next;
+	struct	s_lst_coord	*next;
 }						t_lst_coord;
 
 typedef struct			s_p
 {
-	struct s_lst_coord	*first;
+	t_lst_coord			*first;
 	char				me_token;
 	char				av_token;
 	int					p_len;
@@ -52,10 +52,7 @@ typedef struct			s_p
 	int					b_hig;
 	int					size;
 	int					cpt;
-
-	int fd;
-
-
+	int					fd;
 }						t_p;
 
 int		display(t_p *p);

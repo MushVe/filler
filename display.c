@@ -35,17 +35,14 @@ int display(t_p *p)
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Initialize SDL: %s", SDL_GetError());
-		return EXIT_FAILURE;
-	}
+		return EXIT_FAILURE;}
 
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 
-	if (SDL_CreateWindowAndRenderer(window_width, window_height, 0, &window, &renderer) < 0)
-	{
+	if (SDL_CreateWindowAndRenderer(window_width, window_height, 0, &window, &renderer) < 0) {
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Create window & renderer: %s", SDL_GetError());
-		return EXIT_FAILURE;
-	}
+		return EXIT_FAILURE;}
 
 	SDL_SetWindowTitle(window, "SDL Grid");
 
@@ -65,9 +62,9 @@ int display(t_p *p)
 		{
 			switch (event.type) 
 			{
-			case SDL_QUIT:
-				quit = SDL_TRUE;
-				break;
+				case SDL_QUIT:
+					quit = SDL_TRUE;
+					break;
 			}
 		}
 
@@ -106,9 +103,9 @@ int display(t_p *p)
 		for (int y = 0; y < 1 + grid_height * grid_cell_size; y += grid_cell_size)
 			SDL_RenderDrawLine(renderer, 0, y, window_width, y);
 		SDL_RenderPresent(renderer);
-				SDL_Delay(1000);
+			SDL_Delay(1000);
+
 		//if last node stop and stay on last node
-	
 		if (valid && !(cpy->last))
 			cpy = cpy->next;
 		if (valid == 2)
