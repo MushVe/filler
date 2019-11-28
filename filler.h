@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 06:27:27 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/28 00:48:38 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ typedef struct			s_lst_coord
 typedef struct			s_p
 {
 	struct s_lst_coord	*first;
-	char				token;
+	char				me_token;
+	char				av_token;
 	int					p_len;
 	int					p_cpt;
 	int					p_hig;
 	int					p_it;
-	int					p_true_len;
-	int					p_true_hig;
+	int					p_max_len;
+	int					p_max_hig;
 	int					res_x;
 	int					res_y;
 	char				**piece;
@@ -67,8 +68,7 @@ int		get_piece_size(char *line, t_p *p);
 int		get_piece_data(char *line, t_p *p);
 int		put_piece(t_p *p);
 int		get_size(char *line, t_p *p);
-int		get_true_size(t_p *p);
+int		get_max_size(t_p *p);
 int		get_board(char *line, t_coord *tab, t_p *p);
-int		get_true_size(t_p *p);
 
 #endif

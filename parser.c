@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/27 06:29:07 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/11/28 00:50:30 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,16 @@ int get_board(char *line, t_coord *tab, t_p *p)
 void get_players(char *line, t_p *p)
 {
 	if (ft_strstr(line, "p1"))
-		p->token = 'o';
+		{
+			p->me_token = 'O';
+			p->av_token = 'X';
+		}
 	else
-		p->token = 'x';
-	dprintf(p->fd, "player? %c\n", p->token);
+		{
+			p->me_token = 'X';
+			p->av_token = 'O';
+		}
+	dprintf(p->fd, "player? me: %c av: %c\n", p->me_token, p->av_token);
 }
 
 int	get_board_init(char *line, t_coord **tab, t_p *p)
@@ -94,7 +100,7 @@ int parser(t_p *p)
 		{
 		//	ft_doubleprint(p->piece);
 			p->p_it = 0;
-			get_true_size(p);
+			get_max_size(p);
 			put_piece(p);
 			dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
 			ft_printf("%d %d\n", p->res_x, p->res_y);
