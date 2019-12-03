@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 05:28:46 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/12/03 06:24:10 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ int		get_size(char *line, t_p *p)
 	return (p->b_len * p->b_hig);
 }
 
-void	get_players(char *line, t_p *p)
-{
-	if (ft_strstr(line, "p1"))
-	{
-		p->me_token = 'O';
-		p->av_token = 'X';
-	}
-	else
-	{
-		p->me_token = 'X';
-		p->av_token = 'O';
-	}
-	dprintf(p->fd, "player? me: %c av: %c\n", p->me_token, p->av_token);
-}
-
 int		get_board(char *line, t_coord *tab, t_p *p)
 {
 	int	i;
@@ -57,6 +42,21 @@ int		get_board(char *line, t_coord *tab, t_p *p)
 		}
 	}
 	return (0);
+}
+
+void	get_players(char *line, t_p *p)
+{
+	if (ft_strstr(line, "p1"))
+	{
+		p->me_token = 'O';
+		p->av_token = 'X';
+	}
+	else
+	{
+		p->me_token = 'X';
+		p->av_token = 'O';
+	}
+	// dprintf(p->fd, "player? me: %c av: %c\n", p->me_token, p->av_token);
 }
 
 int		get_board_init(char *line, t_coord **tab, t_p *p)
@@ -79,7 +79,7 @@ int		parser(t_p *p)
 	tab = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		dprintf(p->fd, "> %s\n", line);
+		// dprintf(p->fd, "> %s\n", line);
 		if (ft_strstr(line, " fin: "))
 			return (0);
 		if (ft_strstr(line, "$$$ exec"))
@@ -95,19 +95,18 @@ int		parser(t_p *p)
 			p->p_it = 0;
 			get_max_size(p);
 			put_piece(p);
-			dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
+		//	dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
 			ft_printf("%d %d\n", p->res_x, p->res_y);
-			new_node(tab, p);
 			ft_doublefree(p->piece);
 			ft_doublefree(p->board);
 			init(p);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
-			dprintf(p->fd, "piece size? ");
+			// dprintf(p->fd, "piece size? ");
 			new_node(tab, p);
 			get_piece_size(line, p);
-			dprintf(p->fd, "hig: %d len: %d\n", p->p_hig, p->p_len);
+			// dprintf(p->fd, "hig: %d len: %d\n", p->p_hig, p->p_len);
 		}
 		ft_memdel((void *)&line);
 	}
