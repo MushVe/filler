@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 04:35:52 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/12/03 04:07:08 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_tab(t_coord *tab, t_p *p)
 
 void	init(t_p *p)
 {
-	p->first = NULL;
 	p->board = NULL;
 	p->p_len = 0;
 	p->p_hig = 0;
@@ -38,8 +37,6 @@ void	init(t_p *p)
 	p->res_y = 0;
 	p->valid = 0;
 	p->p_cpt = 0;
-	p->b_len = 0;
-	p->b_hig = 0;
 	p->size = 0;
 	p->cpt = 0;
 }
@@ -52,9 +49,14 @@ int		main(void)
 		return (0);
 //	dprintf(p.fd, "AAAAAHHH\n");
 	init(&p);
+	p.first = NULL;
 	p.me_token = 0;
 	p.av_token = 0;
+	p.b_len = 0;
+	p.b_hig = 0;
 	parser(&p);
-//	display(&p);
+	close(p.fd);
+	printlist(&p);
+	// display(&p);
 	return (0);
 }

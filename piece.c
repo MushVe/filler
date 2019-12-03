@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 04:39:17 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/12/03 01:51:32 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		fill_board(t_p *p)
 		while (++j < p->b_len)
 			p->board[i][j] = '.';
 	}
-	cpy = p->first;
+	cpy = last_elem != NULL ? last_elem : p->first; 
+	// dprintf(p->fd, "%p last_elem\n", last_elem);
 	i = -1;
 	while (cpy->tab[++i].player != -1)
 		p->board[cpy->tab[i].y][cpy->tab[i].x] = cpy->tab[i].player;

@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 04:34:46 by cseguier         ###   ########.fr       */
+/*   Updated: 2019/12/03 02:13:10 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ int		parser(t_p *p)
 	tab = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		// dprintf(p->fd, "> %s\n", line);
-		if (ft_strstr(line, " fin: "))
-			return (0);
+	//	dprintf(p->fd, "> %s\n", line);
 		if (ft_strstr(line, "$$$ exec"))
 			get_players(line, p);
 		if (p->size == 0 && ft_strstr(line, "Plateau"))
@@ -95,7 +93,7 @@ int		parser(t_p *p)
 			p->p_it = 0;
 			get_max_size(p);
 			put_piece(p);
-			// dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
+		//	dprintf(p->fd, "%d %d\n", p->res_y, p->res_x);
 			ft_printf("%d %d\n", p->res_x, p->res_y);
 			ft_doublefree(p->piece);
 			ft_doublefree(p->board);
