@@ -5,6 +5,24 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 
+// int		get_board(char *line, t_coord *tab, t_p *p)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (line[++i] != '\0')
+// 	{
+// 		if (!(ft_isdigit(line[i])) && line[i] != ' ' && line[i] != '.')
+// 		{
+// 			tab[p->cpt].player = line[i];
+// 			tab[p->cpt].x = (i - 4);
+// 			tab[p->cpt].y = ft_atoi(line);
+// 			p->cpt++;
+// 		}
+// 	}
+// 	return (0);
+// }
+
 size_t		align(size_t size)
 {
 	return ((size + 4096) & ~4096);
@@ -31,6 +49,7 @@ int main()
 	int x = 0;
 	int	y = 0;
 	int	last = 0;
+	int	stop = 0;
 
 	fd = open("data", O_RDONLY);
 	fstat(fd, &stat);
@@ -92,11 +111,15 @@ int main()
 					break;
 			}
 		}		
-		while (to_parse[i] != '\0')
-		{
-			while (to_parse[++i] != '\n' && to_parse[i] != '\0' && to_parse[i] != 'u')
+		// while (to_parse[i] != '\0')
+		// {
+			if (to_parse[i] == '\0')
 			{
-				printf("{c: %c}\n", to_parse[i]);
+				stop = 1;
+			}
+			while (!stop && to_parse[++i] != 'u' && to_parse[i] != '\0')
+			{
+				//printf("{c: %c}\n", to_parse[i]);
 				if (to_parse[i] == 'x')
 					x = atoi(to_parse + i + 1);
 				if (to_parse[i] == 'y')
@@ -105,7 +128,7 @@ int main()
 					player = atoi(to_parse + i + 1);
 				if (to_parse[i] == 'l')
 					last = atoi(to_parse + i + 1);
-				if (to_parse[i + 1] == '\n')
+				if (to_parse[i] == '\n')
 				{
 					switch (player)
 					{
@@ -125,16 +148,15 @@ int main()
 			}
 			if (to_parse[i] == 'u')
 			{
-				i++;
 				SDL_SetRenderDrawColor(renderer, grid_line_color.r, grid_line_color.g, grid_line_color.b, grid_line_color.a);
 				for (int x = 0; x < 1 + grid_lenght * grid_cell_size; x += grid_cell_size) 
 					SDL_RenderDrawLine(renderer, x, 0, x, window_height);
 				for (int y = 0; y < 1 + grid_height * grid_cell_size; y += grid_cell_size)
 					SDL_RenderDrawLine(renderer, 0, y, window_lenght, y);
 				SDL_RenderPresent(renderer);
-					SDL_Delay(1000);
+					SDL_Delay(300);
 			}
-		}
+		//}
 	}
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
