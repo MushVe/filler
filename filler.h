@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2019/12/03 06:12:45 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/14 00:56:12 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,9 @@ typedef struct			s_coord
 	char				player;
 }						t_coord;
 
-typedef struct			s_lst_coord
-{
-	t_coord		*tab;
-	int					last;
-	struct	s_lst_coord	*next;
-}						t_lst_coord;
-
 typedef struct			s_p
 {
-	t_lst_coord	*first;
+	t_coord				*tab;
 	char				me_token;
 	char				av_token;
 	int					p_len;
@@ -53,21 +46,22 @@ typedef struct			s_p
 	int					size;
 	int					cpt;
 	int					fd;
+	// int					data_fd;
 }						t_p;
 
 int		display(t_p *p);
 void	init(t_p *p);
 int 	parser(t_p *p);
-int		new_node(t_coord *tab, t_p *p);
-void 	init_tab(t_coord *tab, t_p *p);
-void	printlist(t_p *p);
+int		new_node(t_p *p);
+void 	init_tab(t_p *p);
+// void	printlist(t_p *p);
 int		get_piece_size(char *line, t_p *p);
 int		get_piece_data(char *line, t_p *p);
 int		put_piece(t_p *p);
 int		get_size(char *line, t_p *p);
 int		get_max_size(t_p *p);
-int		get_board(char *line, t_coord *tab, t_p *p);
+int		get_board(char *line, t_p *p);
 
-extern t_lst_coord *last_elem;
+// extern t_lst_coord *last_elem;
 
 #endif
