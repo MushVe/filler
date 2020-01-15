@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/14 00:56:12 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/15 04:17:26 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,23 @@ typedef struct			s_coord
 	char				player;
 }						t_coord;
 
+typedef struct			s_piece
+{
+	int					i_tmp;
+	int					j_tmp;
+	int					i_piece;
+	int					j_piece;
+	int					a;
+	int					b;
+	int					i_av;
+	int					j_av;
+}						t_piece;
+
+
 typedef struct			s_p
 {
 	t_coord				*tab;
+	t_piece				p;
 	char				me_token;
 	char				av_token;
 	int					p_len;
@@ -37,6 +51,8 @@ typedef struct			s_p
 	int					p_max_hig;
 	int					res_x;
 	int					res_y;
+	int					tmp_x;
+	int					tmp_y;
 	char				**piece;
 	int					valid;
 	int					my_turn;

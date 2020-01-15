@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/14 00:54:40 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/15 05:11:29 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		parser(t_p *p)
 	line = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		// dprintf(p->fd, "> %s\n", line);
+	//	dprintf(p->fd, "> %s\n", line);
 		if (ft_strstr(line, " fin: "))
 			return (0);
 		if (ft_strstr(line, "$$$ exec"))
@@ -100,7 +100,7 @@ int		parser(t_p *p)
 			p->p_it = 0;
 			get_max_size(p);
 			put_piece(p);
-			ft_printf("%d %d\n", p->res_x, p->res_y);
+			ft_printf("%d %d\n", p->tmp_x, p->tmp_y);
 			reset_everything(p);
 //			printlist(p);
 		}
