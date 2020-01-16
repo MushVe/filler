@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/15 04:18:01 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/16 04:38:19 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,38 @@ void	init_tab(t_p *p)
 	i = 0;
 	while (++i < p->size)
 	{
-		p->tab[i].x = -1;
-		p->tab[i].y = -1;
-		p->tab[i].player = -1;
+		p->board.data[i].x = -1;
+		p->board.data[i].y = -1;
+		p->board.data[i].player = -1;
 	}
 }
 
 void	init(t_p *p)
 {
-	p->board = NULL;
-	p->p_len = 0;
-	p->p_hig = 0;
-	p->p_it = 0;
-	p->p_max_len = 0;
-	p->p_max_hig = 0;
+	p->board.grid = NULL;
+	p->piece.len = 0;
+	p->piece.hig = 0;
+	p->piece.max_len = 0;
+	p->piece.max_hig = 0;
+	p->piece.it = 0;
+	p->piece.cpt = 0;
 	p->res_x = 0;
 	p->res_y = 0;
 	p->tmp_x = 0;
 	p->tmp_y = 0;
 	p->valid = 0;
-	p->p_cpt = 0;
 	p->size = 0;
 	p->cpt = 0;
+}
+
+
+void	init(t_p *p)
+{
+	p->board.data = NULL;
+	p->board.len = 0;
+	p->board.hig = 0;
+	p->me__token = 0;
+	p->adv_token = 0;
 }
 
 // void	printlist(t_p *p)
@@ -69,11 +79,7 @@ int		main(void)
 	//	return (0);
 	//dprintf(p.fd, "AAAAAHHH\n");
 	init(&p);
-	p.tab = NULL;
-	p.me_token = 0;
-	p.av_token = 0;
-	p.b_len = 0;
-	p.b_hig = 0;
+	init_once(&p);
 	parser(&p);
 	close(p.fd);
 	//close(p.data_fd);

@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 05:54:24 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/28 02:53:26 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/16 02:17:54 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@ int			get_piece_size(char *line, t_p *p)
 	i = -1;
 	while (!(ft_isdigit(line[++i])))
 		;
-	p->p_hig = ft_atoi(line + i);
-	p->p_cpt = p->p_hig;
+	p->piece.hig = ft_atoi(line + i);
+	p->piece.cpt = p->piece.hig;
 	while (line[++i] != ' ')
 		;
-	p->p_len = ft_atoi(line + i);
+	p->piece.len = ft_atoi(line + i);
 	i = -1;
-	if (!(p->piece = (char**)ft_memalloc(sizeof(char*) * (p->p_hig + 1))))
+	if (!(p->piece.content = ft_memalloc(sizeof(char*) * (p->piece.hig + 1))))
 		return (-1);
-	while (++i < p->p_hig)
-		if (!(p->piece[i] = (char*)ft_memalloc(sizeof(char) * (p->p_len + 1))))
+	while (++i < p->piece.hig)
+		if (!(p->piece.content[i] = ft_memalloc(sizeof(char) * (p->piece.len + 1))))
 			return (-1);
 	return (0);
 }
 
-int			get_piece_data(char *line, t_p *p)
+int			get_piece_content(char *line, t_p *p)
 {
 	int	i;
 
 	i = -1;
 	while (line[++i])
-		p->piece[p->p_it][i] = line[i];
-	p->p_cpt--;
-	return (p->p_it++);
+		p->piece.content[p->piece.it][i] = line[i];
+	p->piece.cpt--;
+	return (p->piece.it++);
 }
 
 int			get_max_size(t_p *p)
@@ -50,17 +50,17 @@ int			get_max_size(t_p *p)
 	int	j;
 
 	i = -1;
-	while (++i < p->p_hig)
+	while (++i < p->piece.hig)
 	{
 		j = -1;
-		while (++j < p->p_len)
+		while (++j < p->piece.len)
 		{
 			if (p->piece[i][j] == '*')
 			{
-				if (p->p_max_len < j)
-					p->p_max_len = j;
-				if (p->p_max_hig < i)
-					p->p_max_hig = i;
+				if (p->piece.max_len < j)
+					p->piece.max_len = j;
+				if (p->piece.max_hig < i)
+					p->piece.max_hig = i;
 			}
 		}
 	}
