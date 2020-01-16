@@ -6,13 +6,13 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/16 05:13:41 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/16 05:22:06 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int		memory_allocation_of_the_board(t_p *p, int i)
+int		create_row(t_p *p, int i)
 {
 	return (p->board.grid[i] = ft_memalloc(sizeof(char) * (p->board.len + 1)));
 }
@@ -52,7 +52,7 @@ int		fill_board(t_p *p)
 	if (!(p->board.grid = ft_memalloc(sizeof(char*) * (p->board.hig + 1))))
 		return (-1);
 	while (++i < p->board.hig)
-		if (!(memory_allocation_of_the_board(p, i)))
+		if (!(create_row(p, i)))
 			return (-1);
 	fill_blank_board(p);
 	fill_data_board(p);

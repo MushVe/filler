@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/16 04:53:09 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/16 05:22:08 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct			s_p
 	t_player			moi;
 	t_player			toi;
 
-	t_axis				new_position; //res_xy //old_valid_ij //newvalid?idk
-	t_axis				best_position; //old? new? res? idk
+	t_axis				new_res; //res_xy //old_valid_ij //newvalid?idk
+	t_axis				best_res; //old? new? res? idk
 
 	int					i_adv;
 	int					j_adv;
