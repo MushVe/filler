@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 02:39:14 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/17 05:13:45 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,70 +21,52 @@ void	doubleprint(char **s, t_p *p)
 		dprintf(p->fd, "\t> %s\n", s[i]);
 }
 
-/*
-int		find_nearest_enemy(t_p *p)
+
+void	find_nearest_toi_token(t_p *p)
 {
-	// p->p.i_av = -1;
-	// while (++p->p.i_av < p->board.height)
-	// {
-	// 	p->p.j_av = -1;
-	// 	while (++p->p.j_av < p->board.length)
-	// 	{
-	// 		if (p->board.grid[p->p.i_av][p->p.j_av] == p->av_token)
-	// 			return (1);
-	// 	}
-	// }
-
-	int	i_board;
-	int	j_board;
-	int	i_tmp;
-	int	j_tmp;
-	
-	i_board = -1;
-	i_tmp = 0;
-	j_tmp = 0;
-	while (++i_board < p->board.height)
+	p->board.axis.x = -1;
+	while (++p->board.axis.x < p->board.height)
 	{
-		j_board = -1;
-		while (++j_board < p->board.length)
+		p->board.axis.y = -1;
+		while (++p->board.axis.y < p->board.length)
 		{
-			if(p->board.grid[i_board][j_board] == p->toi.token)
+			if(p->board.grid[p->board.axis.x][p->board.axis.y] == p->toi.token)
 			{
-				i_tmp;
-				j_tmp;
-				// compare
+				if (is_closer(p->new_res, p->best_res, p->toi.axis))
+					p->best_res = p->new_res;
 			}
-	if (ft_abs(p->new_res.x - p->p.i_av) < ft_abs(p->best_res.x - p->p.i_av)
-		|| ft_abs(p->new_res.y - p->p.j_av) < ft_abs(p->best_res.y - p->p.j_av));
-
 		}
 	}
-
-
 	return (0);
 }
 
-int		is_closer(t_p *p)
+int		is_closer(t_axis new_res, t_axis best_res, t_axis toi)
 {
-	if (ft_abs(p->new_res.x - p->p.i_av) < ft_abs(p->best_res.x - p->p.i_av)
-		|| ft_abs(p->new_res.y - p->p.j_av) < ft_abs(p->best_res.y - p->p.j_av))
+	t_axis	new_position;
+	t_axis	best_position;
+
+	new_position.x = ft_abs(new_res.x - toi.x);
+	new_position.y = ft_abs(new_res.y - toi.y);
+	best_position.x = ft_abs(best_res.x - toi.x);
+	best_position.y = ft_abs(best_res.y - toi.y);
+	if (new_position.x < best_position.x || new_position.y < best_position.y)
 		return (1);
 	return (0);
 }
 
-
+/*
 ** enregistrer X le plus proche
 ** memoriser valeur de i et j valide pour poser piece
 ** si piece valide suivante plus proche, ecraser valeur
-** (i_trouvé - i_adversaire > i_suivant - i_adverse)
-** (j_trouvé - j_adversaire > j_suivant - j_adverse)
+** (x_trouvé - x_adversaire > x_suivant - x_adverse)
+** (y_trouvé - y_adversaire > y_suivant - y_adverse)
 ** si fin board, renvoyer meilleure valeur
 */
-/*
+
 int		put_piece(t_p *p)
 {
 	fill_board(p);
-	find_nearest_enemy(p);
+	find_nearest_toi_token(p);
 	p->board.axis.x = -1;
 	while (++p->board.axis.x < p->board.height)
 	{
@@ -93,8 +75,8 @@ int		put_piece(t_p *p)
 		{
 			if (can_put_piece(p) == 1)
 			{
-				// abs(i_suivant - i_adverse) < abs(i_trouvé - i_adversaire)
-				// abs(j_suivant - j_adverse) < abs(j_trouvé - j_adversaire)
+				// abs(x_suivant - x_adverse) < abs(x_trouvé - x_adversaire)
+				// abs(y_suivant - y_adverse) < abs(y_trouvé - y_adversaire)
 				if (is_closer(p))
 				{
 					p->best_res.x = p->new_res.x;
@@ -105,51 +87,51 @@ int		put_piece(t_p *p)
 	}
 	return (0);
 }
-*/
 
+/*
 int		put_piece(t_p *p)
 {
-	int	i_board;
-	int	j_board;
-	int	i_tmp_b;
-	int	j_tmp_b;
-	int	i_piece;
-	int	j_piece;
+	int	x_board;
+	int	y_board;
+	int	x_tmp_b;
+	int	y_tmp_b;
+	int	x_piece;
+	int	y_piece;
 	int	a;
 	int	b;
 
 	fill_board(p);
-	i_board = -1;
-	while (++i_board < p->board.height)
+	x_board = -1;
+	while (++x_board < p->board.height)
 	{
-		j_board = -1;
-		while (++j_board < p->board.length)
+		y_board = -1;
+		while (++y_board < p->board.length)
 		{
-			i_piece = -1;
+			x_piece = -1;
 			a = 0;
 			b = 0;
-			if ((p->piece.max_height + i_board < p->board.height)
-				&& (p->piece.max_length + j_board < p->board.length))
+			if ((p->piece.max_height + x_board < p->board.height)
+				&& (p->piece.max_length + y_board < p->board.length))
 			{
-				while (++i_piece < p->piece.max_height + 1)
+				while (++x_piece < p->piece.max_height + 1)
 				{
-					j_piece = -1;
-					while (++j_piece < p->piece.max_length + 1)
+					y_piece = -1;
+					while (++y_piece < p->piece.max_length + 1)
 					{
-						i_tmp_b = i_piece + i_board;
-						j_tmp_b = j_piece + j_board;
-						if (p->piece.content[i_piece][j_piece] == '*'
-							&& p->board.grid[i_tmp_b][j_tmp_b] == p->moi.token)
+						x_tmp_b = x_piece + x_board;
+						y_tmp_b = y_piece + y_board;
+						if (p->piece.content[x_piece][y_piece] == '*'
+							&& p->board.grid[x_tmp_b][y_tmp_b] == p->moi.token)
 							a++;
-						if (p->piece.content[i_piece][j_piece] == '*'
-							&& p->board.grid[i_tmp_b][j_tmp_b] == p->toi.token)
+						if (p->piece.content[x_piece][y_piece] == '*'
+							&& p->board.grid[x_tmp_b][y_tmp_b] == p->toi.token)
 							b++;
 					}
 				}
 				if (a == 1 && b == 0)
 				{
-					p->best_res.x = i_board;
-					p->best_res.y = j_board;
+					p->best_res.x = x_board;
+					p->best_res.y = y_board;
 					return (0);
 				}
 			}
@@ -157,3 +139,4 @@ int		put_piece(t_p *p)
 	}
 	return (0);
 }
+*/

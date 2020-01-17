@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 02:24:49 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/17 05:02:42 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,25 @@ typedef struct			s_data
 
 typedef struct			s_board
 {
-	t_data				*data;		// tab
-	char				**grid;		// board
-	int					length;		// b_length;
-	int					height;		// b_height;
+	t_data				*data;
+	char				**grid;
+	int					length;
+	int					height;
 	int					size;
 	int					cpt;
-	t_axis				axis;		// i_board; j_board;
-
+	t_axis				axis;
 }						t_board;
 
 typedef struct			s_piece
 {
-	char				**content;	// **piece;
-	int					length;		// p_length;
-	int					height;		// p_height;
-	int					max_length;	// p_max_length;
-	int					max_height;	// p_max_height;
-	int					cpt;		// p_cpt;
-	int					it;			// p_it;
-
-	t_axis				axis;		// i_piece; j_piece;
+	char				**content;
+	int					length;
+	int					height;
+	int					max_length;
+	int					max_height;
+	int					cpt;
+	int					it;
+	t_axis				axis;
 
 }						t_piece;
 
@@ -59,6 +57,7 @@ typedef struct			s_player
 {
 	char				token;
 	int					token_cpt;
+	t_axis				axis;
 }						t_player;
 
 typedef struct			s_p
@@ -67,15 +66,8 @@ typedef struct			s_p
 	t_board				board;
 	t_player			moi;
 	t_player			toi;
-
-	t_axis				new_res; //res_xy //old_valid_ij //newvalid?idk
-	t_axis				best_res; //old? new? res? idk
-
-	// int					i_adv;
-	// int					j_adv;
-	// int					valid;
-	// int					my_turn;
-	// int					cpt;
+	t_axis				new_res;
+	t_axis				best_res;
 	int					fd;
 	// int					data_fd;
 }						t_p;
