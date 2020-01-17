@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 04:19:56 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/16 05:21:46 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/17 01:51:14 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int			can_put_piece(t_p *p)
 	p->piece.axis.x = -1;
 	p->moi.token_cpt = 0;
 	p->toi.token_cpt = 0;
-	if ((p->piece.max_hig + p->board.axis.x < p->board.hig)
-		&& (p->piece.max_len + p->board.axis.y < p->board.len))
+	if ((p->piece.max_height + p->board.axis.x < p->board.height)
+		&& (p->piece.max_length + p->board.axis.y < p->board.length))
 	{
-		while (++p->piece.axis.x < p->piece.max_hig + 1)
+		while (++p->piece.axis.x < p->piece.max_height + 1)
 		{
 			p->piece.axis.y = -1;
-			while (++p->piece.axis.y < p->piece.max_len + 1)
+			while (++p->piece.axis.y < p->piece.max_length + 1)
 				contact_count(p);
 		}
 		if (p->moi.token_cpt == 1 && p->toi.token_cpt == 0)

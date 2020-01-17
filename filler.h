@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/16 05:22:08 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/17 02:24:49 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct			s_board
 {
 	t_data				*data;		// tab
 	char				**grid;		// board
-	int					len;		// b_len;
-	int					hig;		// b_hig;
+	int					length;		// b_length;
+	int					height;		// b_height;
 	int					size;
+	int					cpt;
 	t_axis				axis;		// i_board; j_board;
 
 }						t_board;
@@ -43,10 +44,10 @@ typedef struct			s_board
 typedef struct			s_piece
 {
 	char				**content;	// **piece;
-	int					len;		// p_len;
-	int					hig;		// p_hig;
-	int					max_len;	// p_max_len;
-	int					max_hig;	// p_max_hig;
+	int					length;		// p_length;
+	int					height;		// p_height;
+	int					max_length;	// p_max_length;
+	int					max_height;	// p_max_height;
 	int					cpt;		// p_cpt;
 	int					it;			// p_it;
 
@@ -70,11 +71,11 @@ typedef struct			s_p
 	t_axis				new_res; //res_xy //old_valid_ij //newvalid?idk
 	t_axis				best_res; //old? new? res? idk
 
-	int					i_adv;
-	int					j_adv;
-	int					valid;
-	int					my_turn;
-	int					cpt;
+	// int					i_adv;
+	// int					j_adv;
+	// int					valid;
+	// int					my_turn;
+	// int					cpt;
 	int					fd;
 	// int					data_fd;
 }						t_p;
@@ -84,6 +85,7 @@ void	init(t_p *p);
 int 	parser(t_p *p);
 int		new_node(t_p *p);
 void 	init_tab(t_p *p);
+int		fill_board(t_p *p);
 // void	printlist(t_p *p);
 int		get_piece_size(char *line, t_p *p);
 int		get_piece_content(char *line, t_p *p);

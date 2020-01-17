@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/16 05:18:15 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/17 03:30:46 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		get_board_size(char *line, t_p *p)
 	i = -1;
 	while (!(ft_isdigit(line[++i])))
 		;
-	p->board.hig = ft_atoi(line + i);
+	p->board.height = ft_atoi(line + i);
 	while (line[++i] != ' ')
 		;
-	p->board.len = ft_atoi(line + i);
-	return (p->board.len * p->board.hig);
+	p->board.length = ft_atoi(line + i);
+	return (p->board.length * p->board.height);
 }
 
 int		get_board_data(char *line, t_p *p)
@@ -35,10 +35,10 @@ int		get_board_data(char *line, t_p *p)
 	{
 		if (!(ft_isdigit(line[i])) && line[i] != ' ' && line[i] != '.')
 		{
-			p->board.data[p->cpt].player = line[i];
-			p->board.data[p->cpt].axis.x = (i - 4);
-			p->board.data[p->cpt].axis.y = ft_atoi(line);
-			p->cpt++;
+			p->board.data[p->board.cpt].player = line[i];
+			p->board.data[p->board.cpt].axis.x = (i - 4);
+			p->board.data[p->board.cpt].axis.y = ft_atoi(line);
+			p->board.cpt++;
 		}
 	}
 	return (0);
@@ -48,13 +48,13 @@ void	get_players(char *line, t_p *p)
 {
 	if (ft_strstr(line, "p1"))
 	{
-		p->me_token = 'O';
-		p->av_token = 'X';
+		p->moi.token = 'O';
+		p->toi.token = 'X';
 	}
 	else
 	{
-		p->me_token = 'X';
-		p->av_token = 'O';
+		p->moi.token = 'X';
+		p->toi.token = 'O';
 	}
 }
 
@@ -67,7 +67,7 @@ int		init_board(char *line, t_p *p)
 	return (0);
 }
 
-void reset_everything(t_p *p)
+void	reset_everything(t_p *p)
 {
 // 	ft_memdel((void*)&p->tab);
 	ft_doublefree(p->piece.content);
@@ -100,7 +100,7 @@ int		parser(t_p *p)
 			p->piece.it = 0;
 			get_max_size(p);
 			put_piece(p);
-			ft_printf("%d %d\n", p->tmp_x, p->tmp_y);
+			ft_printf("%d %d\n", p->best_res.x, p->best_res.y);
 			reset_everything(p);
 //			printlist(p);
 		}
