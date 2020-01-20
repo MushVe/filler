@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 05:13:45 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/20 10:57:57 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,45 @@ void	doubleprint(char **s, t_p *p)
 		dprintf(p->fd, "\t> %s\n", s[i]);
 }
 
-
-void	find_nearest_toi_token(t_p *p)
+void	count_toi_token(t_p *p)
 {
+	p->toi.token_cpt = 0;
+	while (++p->board.axis.x < p->board.height)
+	{
+		p->board.axis.y = -1;
+		while (++p->board.axis.y < p->board.length)
+		{
+			if(p->board.grid[p->board.axis.x][p->board.axis.y] == p->toi.token)
+				p->toi.token_cpt++;
+		}
+	}
+}
+
+int		create_token_tab(t_p *p)
+{
+	int	size;
+	int	i;
+
+	i = -1;
+	size = sizeof(t_axis) * (p->toi.token_cpt + 1);
+	if (!(p->toi.locations = ft_memalloc(size)))
+		return (0);
+	while (++i < size)
+	{
+		p->toi.locations[i].x = -1; 
+		p->toi.locations[i].y = -1;
+	}
+	return (1);
+}
+
+void	find_toi_token(t_p *p)
+{
+	int	i;
+
+	i = -1;
+	count_toi_token(p);
+	if (!(create_token_tab(p)))
+		return (0);
 	p->board.axis.x = -1;
 	while (++p->board.axis.x < p->board.height)
 	{
@@ -32,23 +68,30 @@ void	find_nearest_toi_token(t_p *p)
 		{
 			if(p->board.grid[p->board.axis.x][p->board.axis.y] == p->toi.token)
 			{
-				if (is_closer(p->new_res, p->best_res, p->toi.axis))
-					p->best_res = p->new_res;
+				p->toi.locations[++i].x = p->board.axis.x;
+				p->toi.locations[i].y = p->board.axis.y;
 			}
 		}
 	}
 	return (0);
 }
 
-int		is_closer(t_axis new_res, t_axis best_res, t_axis toi)
+t_axis	get_close_toi(t_axis new_res, t_axis best_res, t_axis *toi_locations)
+{
+	
+}
+
+int		is_closer(t_axis new_res, t_axis best_res, t_axis *toi_locations)
 {
 	t_axis	new_position;
 	t_axis	best_position;
+	t_axis	close_toi;
 
-	new_position.x = ft_abs(new_res.x - toi.x);
-	new_position.y = ft_abs(new_res.y - toi.y);
-	best_position.x = ft_abs(best_res.x - toi.x);
-	best_position.y = ft_abs(best_res.y - toi.y);
+	close_toi = get_close_toi(new_res, best_res, toi_locations);
+	new_position.x = ft_abs(new_res.x - close_toi.x);
+	new_position.y = ft_abs(new_res.y - close_toi.y);
+	best_position.x = ft_abs(best_res.x - close_toi.x);
+	best_position.y = ft_abs(best_res.y - close_toi.y);
 	if (new_position.x < best_position.x || new_position.y < best_position.y)
 		return (1);
 	return (0);
@@ -66,7 +109,7 @@ int		is_closer(t_axis new_res, t_axis best_res, t_axis toi)
 int		put_piece(t_p *p)
 {
 	fill_board(p);
-	find_nearest_toi_token(p);
+	find_toi_token(p);
 	p->board.axis.x = -1;
 	while (++p->board.axis.x < p->board.height)
 	{
@@ -77,7 +120,7 @@ int		put_piece(t_p *p)
 			{
 				// abs(x_suivant - x_adverse) < abs(x_trouvé - x_adversaire)
 				// abs(y_suivant - y_adverse) < abs(y_trouvé - y_adversaire)
-				if (is_closer(p))
+				if (is_closer(p->new_res, p->best_res, p->toi.locations))
 				{
 					p->best_res.x = p->new_res.x;
 					p->best_res.y = p->new_res.y;
