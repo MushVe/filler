@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/20 10:57:57 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/21 06:11:12 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,6 @@ void	find_toi_token(t_p *p)
 	return (0);
 }
 
-t_axis	get_close_toi(t_axis new_res, t_axis best_res, t_axis *toi_locations)
-{
-	
-}
-
-int		is_closer(t_axis new_res, t_axis best_res, t_axis *toi_locations)
-{
-	t_axis	new_position;
-	t_axis	best_position;
-	t_axis	close_toi;
-
-	close_toi = get_close_toi(new_res, best_res, toi_locations);
-	new_position.x = ft_abs(new_res.x - close_toi.x);
-	new_position.y = ft_abs(new_res.y - close_toi.y);
-	best_position.x = ft_abs(best_res.x - close_toi.x);
-	best_position.y = ft_abs(best_res.y - close_toi.y);
-	if (new_position.x < best_position.x || new_position.y < best_position.y)
-		return (1);
-	return (0);
-}
-
 /*
 ** enregistrer X le plus proche
 ** memoriser valeur de i et j valide pour poser piece
@@ -106,28 +85,69 @@ int		is_closer(t_axis new_res, t_axis best_res, t_axis *toi_locations)
 ** si fin board, renvoyer meilleure valeur
 */
 
-int		put_piece(t_p *p)
+
+int		is_closer(t_axis new_res, t_axis best_res, t_axis token_tested)
 {
-	fill_board(p);
-	find_toi_token(p);
+	t_axis	new_position;
+	t_axis	best_position;
+
+	new_position.x = ft_abs(new_res.x - token_tested.x);
+	new_position.y = ft_abs(new_res.y - token_tested.y);
+	best_position.x = ft_abs(best_res.x - token_tested.x);
+	best_position.y = ft_abs(best_res.y - token_tested.y);
+	if (new_position.x < best_position.x || new_position.y < best_position.y)
+		return (1);
+	return (0);
+}
+
+int		is_endof_tab(t_axis *locations, int i)
+{
+	if (locations[i].x != -1 && locations[i].y != -1)
+		return (0);
+	return (1);
+}
+
+t_axis	get_close_toi(t_p *p)
+{
+	int		i;
+
 	p->board.axis.x = -1;
 	while (++p->board.axis.x < p->board.height)
 	{
 		p->board.axis.y = -1;
 		while (++p->board.axis.y < p->board.length)
 		{
-			if (can_put_piece(p) == 1)
+			if (can_put_piece(p) == 1) // new_res affectect here
 			{
-				// abs(x_suivant - x_adverse) < abs(x_trouvé - x_adversaire)
-				// abs(y_suivant - y_adverse) < abs(y_trouvé - y_adversaire)
-				if (is_closer(p->new_res, p->best_res, p->toi.locations))
+				i = -1;
+				while (++i && !(is_endof_tab(p->toi.locations, i)))
 				{
-					p->best_res.x = p->new_res.x;
-					p->best_res.y = p->new_res.y;
+					if (is_closer(p->new_tmp, p->best_tmp, p->toi.locations[i]))
+					{
+						p->best_tmp.x = p->new_tmp.x;
+						p->best_tmp.y = p->new_tmp.y;
+					}
 				}
 			}
 		}
 	}
+	return (p->best_tmp);
+}
+
+
+int		put_piece(t_p *p)
+{
+	fill_board(p);
+	find_toi_token(p);
+	t_axis	close_toi;
+
+	close_toi = get_close_toi(p); // new affectect here in can_put_piece()
+	if (is_closer(p->new_final, p->best_final, close_toi))
+	{
+		p->best_final.x = p->new_final.x;
+		p->best_final.y = p->new_final.y;
+	}
+
 	return (0);
 }
 

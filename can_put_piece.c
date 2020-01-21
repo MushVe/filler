@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 04:19:56 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 01:51:14 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/21 05:57:19 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int			can_put_piece(t_p *p)
 		}
 		if (p->moi.token_cpt == 1 && p->toi.token_cpt == 0)
 		{
-			p->new_res.x = p->board.axis.x;
-			p->new_res.y = p->board.axis.y;
+			p->new_tmp.x = p->board.axis.x;
+			p->new_tmp.y = p->board.axis.y;
 			return (1);
 		}
 	}

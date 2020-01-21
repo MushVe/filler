@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/20 09:20:49 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/21 05:57:00 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ typedef struct			s_p
 	t_board				board;
 	t_player			moi;
 	t_player			toi;
-	t_axis				new_res;
-	t_axis				best_res;
+	t_axis				new_tmp;
+	t_axis				best_tmp;
+	t_axis				new_final;
+	t_axis				best_final;
 	int					fd;
 	// int					data_fd;
 }						t_p;
