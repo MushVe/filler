@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/21 05:57:00 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 02:35:52 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct			s_p
 	t_axis				best_tmp;
 	t_axis				new_final;
 	t_axis				best_final;
-	int					fd;
-	// int					data_fd;
+	int					res_fd;
+	int					data_fd;
 }						t_p;
 
 int		display(t_p *p);
@@ -81,10 +81,11 @@ int 	parser(t_p *p);
 int		new_node(t_p *p);
 void 	init_tab(t_p *p);
 int		fill_board(t_p *p);
-// void	printlist(t_p *p);
+void	printlist(t_p *p);
 int		get_piece_size(char *line, t_p *p);
 int		get_piece_content(char *line, t_p *p);
 int		put_piece(t_p *p);
+int		can_put_piece(t_p *p);
 int		get_board_size(char *line, t_p *p);
 int		get_max_size(t_p *p);
 int		get_board_data(char *line, t_p *p);

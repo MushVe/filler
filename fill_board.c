@@ -6,17 +6,11 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 02:20:47 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 03:22:12 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 03:55:35 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-static void	*create_row(t_p *p, int i)
-{
-	p->board.grid[i] = ft_memalloc(sizeof(char) * (p->board.length + 1));
-	return (p->board.grid[i]);
-}
 
 static void	fill_blank_board(t_p *p)
 {
@@ -50,12 +44,14 @@ static void	fill_data_board(t_p *p)
 int			fill_board(t_p *p)
 {
 	int	i;
+	int	size;
 
 	i = -1;
 	if (!(p->board.grid = ft_memalloc(sizeof(char*) * (p->board.height + 1))))
 		return (-1);
+	size = sizeof(char) * (p->board.length + 1);
 	while (++i < p->board.height)
-		if (!(create_row(p, i)))
+		if (!(p->board.grid[i] = ft_memalloc(size)))
 			return (-1);
 	fill_blank_board(p);
 	fill_data_board(p);
