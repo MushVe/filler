@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/22 02:35:52 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 05:04:34 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct			s_player
 	char				token;
 	int					token_cpt;
 	t_axis				axis;
-	t_axis				*locations;
 }						t_player;
 
 typedef struct			s_p

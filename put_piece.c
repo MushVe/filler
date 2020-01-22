@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/22 03:55:42 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 05:14:05 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,76 +19,6 @@ void	doubleprint(char **s, t_p *p)
 	i = -1;
 	while (s[++i])
 		dprintf(p->res_fd, "\t> %s\n", s[i]);
-}
-
-void	count_toi_token(t_p *p)
-{
-	p->toi.token_cpt = 0;
-	while (++p->board.axis.x < p->board.height)
-	{
-		p->board.axis.y = -1;
-		while (++p->board.axis.y < p->board.length)
-		{
-			// dprintf(p->res_fd, "%p\n", &p->board.grid[p->board.axis.x][p->board.axis.y]);
-			// dprintf(p->res_fd, "%c\n", p->board.grid[p->board.axis.x][p->board.axis.y]);
-			// dprintf(p->res_fd, "%p\n", p->board.grid);
-			// dprintf(p->res_fd, "%d\n", p->toi.token_cpt);
-			if(p->board.grid[p->board.axis.x][p->board.axis.y] == p->toi.token)
-				p->toi.token_cpt++;
-		}
-	}
-}
-
-int		create_token_tab(t_p *p)
-{
-	int	size;
-	int	i;
-
-	i = -1;
-	size = sizeof(t_axis) * (p->toi.token_cpt + 1);
-	if (!(p->toi.locations = ft_memalloc(size)))
-		return (0);
-	while (++i < p->toi.token_cpt + 1)
-	{
-		p->toi.locations[i].x = -1; 
-		p->toi.locations[i].y = -1;
-	}
-	return (1);
-}
-
-int		find_toi_token(t_p *p)
-{
-	int	i;
-
-	i = -1;
-			dprintf(p->res_fd, "000\n");
-	count_toi_token(p);
-	if (!(create_token_tab(p)))
-		return (0);
-			dprintf(p->res_fd, "111\n");
-	p->board.axis.x = -1;
-	while (++p->board.axis.x < p->board.height)
-	{
-			dprintf(p->res_fd, "222\n");
-		p->board.axis.y = -1;
-		while (++p->board.axis.y < p->board.length)
-		{
-			dprintf(p->res_fd, "333\n");
-			// dprintf(p->res_fd, "%d\n", p->board.axis.x);
-			// dprintf(p->res_fd, "%d\n", p->board.axis.y);
-			// dprintf(p->res_fd, "%c\n", p->toi.token);
-			// dprintf(p->res_fd, "%p\n", p->board.grid);
-			// dprintf(p->res_fd, "%s\n", p->board.grid[0]);
-			// dprintf(p->res_fd, "%c\n", p->board.grid[0][0]);
-			if(p->board.grid[p->board.axis.x][p->board.axis.y] == p->toi.token)
-			{
-				dprintf(p->res_fd, "444\n");
-				p->toi.locations[++i].x = p->board.axis.x;
-				p->toi.locations[i].y = p->board.axis.y;
-			}
-		}
-	}
-	return (0);
 }
 
 /*
@@ -115,17 +45,26 @@ int		is_closer(t_axis new_res, t_axis best_res, t_axis token_tested)
 	return (0);
 }
 
-int		is_endof_tab(t_axis *locations, int i)
+void	find_closest_ennemy(t_p *p)
 {
-	if (locations[i].x != -1 && locations[i].y != -1)
-		return (0);
-	return (1);
+	int		i;
+
+	i = -1;
+	while (++i && !(p->board.data[i].player != -1))
+	{
+		if (p->board.data[i].player == p->toi.token)
+		{
+			if (is_closer(p->new_tmp, p->best_tmp, p->board.data[i].axis))
+			{
+				p->best_tmp.x = p->new_tmp.x;
+				p->best_tmp.y = p->new_tmp.y;
+			}
+		}
+	}
 }
 
 t_axis	find_best_location(t_p *p)
 {
-	int		i;
-
 	p->board.axis.x = -1;
 	while (++p->board.axis.x < p->board.height)
 	{
@@ -134,15 +73,7 @@ t_axis	find_best_location(t_p *p)
 		{
 			if (can_put_piece(p) == 1) // new_res affectect here
 			{
-				i = -1;
-				while (++i && !(is_endof_tab(p->toi.locations, i)))
-				{
-					if (is_closer(p->new_tmp, p->best_tmp, p->toi.locations[i]))
-					{
-						p->best_tmp.x = p->new_tmp.x;
-						p->best_tmp.y = p->new_tmp.y;
-					}
-				}
+				find_closest_ennemy(p);
 				if (is_closer(p->new_final, p->best_final, p->best_tmp))
 				{
 					p->best_final.x = p->new_final.x;
@@ -159,8 +90,6 @@ int		put_piece(t_p *p)
 {
 	dprintf(p->res_fd, "before fill board\n");
 	fill_board(p);
-	dprintf(p->res_fd, "before find toi\n");
-	find_toi_token(p);
 	dprintf(p->res_fd, "before find_best\n");
 	find_best_location(p); // new affectect here in can_put_piece()
 	dprintf(p->res_fd, "end put_piece\n");
