@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/22 02:39:43 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:34:20 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	init(t_p *p)
 	p->new_tmp.y = 0;
 	p->best_tmp.x = 0;
 	p->best_tmp.y = 0;
-	p->new_final.x = 0;
-	p->new_final.y = 0;
 	p->best_final.x = 0;
 	p->best_final.y = 0;
 }

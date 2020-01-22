@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/22 02:42:19 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:58:32 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		parser(t_p *p)
 	line = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		dprintf(p->res_fd, "> %s\n", line);
+		// dprintf(p->res_fd, "> %s\n", line);
 		if (ft_strstr(line, " fin: "))
 			return (0);
 		if (ft_strstr(line, "$$$ exec"))
@@ -97,15 +97,13 @@ int		parser(t_p *p)
 			get_piece_content(line, p);
 		if (p->piece.cpt == 0 && p->piece.it != 0)
 		{
-			dprintf(p->res_fd, "Enter if\n");
+			// dprintf(p->res_fd, "Enter if\n");
 			p->piece.it = 0;
-			dprintf(p->res_fd, "before get max sze\n");
+			// dprintf(p->res_fd, "before get max size\n");
 			get_max_size(p);
-			dprintf(p->res_fd, "before put piece\n");
+			// dprintf(p->res_fd, "before put piece\n");
 			put_piece(p);
-			dprintf(p->res_fd, "before print\n");
-			ft_printf("%d %d\n", p->best_final.x, p->best_final.y);
-			dprintf(p->res_fd, "after print\n");
+			// dprintf(p->res_fd, "after print\n");
 			reset_everything(p);
 			printlist(p);
 		}
