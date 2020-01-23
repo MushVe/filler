@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/22 06:34:20 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/23 04:52:45 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init(t_p *p)
 	p->best_tmp.y = 0;
 	p->best_final.x = 0;
 	p->best_final.y = 0;
+	p->piece_size = 0;
 }
 
 
@@ -52,6 +53,7 @@ void	init_once(t_p *p)
 	p->board.height = 0;
 	p->moi.token = 0;
 	p->toi.token = 0;
+	p->hit_map = NULL;
 }
 
 void	printlist(t_p *p)

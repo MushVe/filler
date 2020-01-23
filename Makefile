@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2020/01/22 03:57:11 by cseguier         ###   ########.fr        #
+#    Updated: 2020/01/23 04:36:05 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INC = -I libft
 SRC = $(FILE:%=%)
 OBJ = $(FILE:%.c=objs/%.o)
 
-FLAG = -Wall -Werror -Wextra #-fsanitize=address -g3
+FLAG = -Wall -Werror -Wextra -fsanitize=address #-g3
 CC = gcc $(FLAG) $(INC)
 
 RM = rm -rf
