@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/23 05:18:39 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:32:11 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,107 +130,63 @@ t_axis *find_newest_enemy(t_p *p, int newest)
 	
 	height = p->board.height;
 	length = p->board.length;
-
 	p->piece_size = dracula(p, newest);
 	cpt = 0;
-
-	// dprintf(p->res_fd, "PIECE SIZE %d\n", p->piece_size);
-	
 	if (p->piece_size <= 0)
 		return NULL;
-	// dprintf(p->res_fd, " %d\n", 1);
-	
-	enemy_coord = ft_memalloc(p->piece_size * sizeof(t_axis));
-	if (!enemy_coord)
+	if (!(enemy_coord = ft_memalloc(p->piece_size * sizeof(t_axis))))
 		return (NULL);
-	
 	x = -1;
-	// dprintf(p->res_fd, " %d\n", 2);
-	
 	while (++x < height)
 	{
-		// dprintf(p->res_fd, " %d\n", 3);
 		y = -1;
 		while (++y < length)
 		{
-			// dprintf(p->res_fd, " TIDUS x> %d\n", x);
-			// dprintf(p->res_fd, " TIDUS y> %d\n", y);
 			if (p->hit_map[x][y] == newest)
 			{
-				// dprintf(p->res_fd, "tis is cpt %d\n", cpt);
+				
 				enemy_coord[cpt].x = x;
 				enemy_coord[cpt].y = y;
 				if (cpt + 1 < p->piece_size)
 					cpt++;
-			}
-			// dprintf(p->res_fd, " %d\n", 5);
+			}		
 		}
 	}
-
-	// dprintf(p->res_fd, " %d\n", 6);
 	return (enemy_coord);
 }
 
-/**
- * Heuristiques :
- * 1/
- * Verifier tout les emplacements valides
- * et parmi toutes les positions enemies
- * trouver l'emplacement le plus proche 
- * de la derniere posée, si plusieurs
- * resultats sont equivalents
- * 
- * 2/
- * Parmi toutes les emplacements valides
- * trouver l'emplacement le plus proche
- * de la derniere piece posée par l'ennemi
- * ex: au 57eme tour de jeu, verifier
- * toutes les positions 57 et trouver
- * le meilleur combo la dedans
- * entre positions ennemi et positions valides
- */
-
-/**
- * This function take the last enemy_coord
- * and chec*/
 int is_closer_heuristic_one(t_p *p, t_axis *enemy_coord, int enemy_coord_size, t_axis *best_distance)
 {
-	// dprintf(p->res_fd, "OUI <<<\n");
-	t_axis valid_pos;
-	t_axis abs_distance;
-	int i;
+	t_axis	valid_pos;
+	t_axis	abs_distance;
+	int		res;
+	int		i;
 
 	i = -1;
+	res = 0;
 	valid_pos.x = p->new_tmp.x;
 	valid_pos.y = p->new_tmp.y;
 	while (++i < enemy_coord_size)
 	{
-		// dprintf(p->res_fd, "OUI <<<\n");
 		abs_distance.x = ft_abs(valid_pos.x - enemy_coord[i].x);
 		abs_distance.y = ft_abs(valid_pos.y - enemy_coord[i].y);
-		if (best_distance->x > abs_distance.x || best_distance->x > abs_distance.x)
+		if (best_distance->x >= abs_distance.x && best_distance->y >= abs_distance.y)
 		{
-			// dprintf(p->res_fd, "OUI <<<\n");
 			best_distance->x = abs_distance.x;
 			best_distance->y = abs_distance.y;
-			return (1);
+			res = 1;
 		}
 	}
-	return (0);
+	return (res);
 }
 
-/**
- * This function iterate through the board
- * for each valid position
- * we store the best absolute distance 
- * for the highest value in hit_map aka turn
- */
 void	find_best_location(t_p *p, int turn)
 {
-	t_axis *enemy_coord = NULL;
+	t_axis *enemy_coord;
 	t_axis best_distance;
 
 	p->board.axis.x = -1;
+	enemy_coord = NULL;
 	best_distance.x = INT_MAX;
 	best_distance.y = INT_MAX;
 	while (++p->board.axis.x < p->board.height)
@@ -240,8 +196,7 @@ void	find_best_location(t_p *p, int turn)
 		{
 			if (can_put_piece(p) == 1) // new_tmp affectect here
 			{
-				enemy_coord = find_newest_enemy(p, turn);
-				if (!enemy_coord)
+				if (!(enemy_coord = find_newest_enemy(p, turn)))
 					return ;
 				if (is_closer_heuristic_one(p, enemy_coord, p->piece_size, &best_distance))
 				{
@@ -251,11 +206,16 @@ void	find_best_location(t_p *p, int turn)
 			}
 		}
 	}
+	ft_memdel((void*)&enemy_coord);
 }
 
+/**
+ * turn isnt incremented, as it isnt 
+ * a static variable anymore
+ * print the map to see what happens
+ */
 int		put_piece(t_p *p)
 {
-	
 	int turn = 1;
 	fill_board(p);
 	if (!(create_hit_map(p, turn)))

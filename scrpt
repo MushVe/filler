@@ -1,0 +1,18 @@
+#!/bin/bash
+for m in maps/*
+do
+	for f in players/*
+	do
+		#echo $f
+		for	i in 1 2 3 4 5
+		do
+		./filler_vm -f $m -p1 $f -p2 players/cseguier.filler > camO;
+		cat filler.trace | grep -e 'won\|AGAINST'
+		done
+		for	i in 1 2 3 4 5
+		do
+		./filler_vm -f $m -p1 players/cseguier -p2 $f > camO;
+		cat filler.trace | grep -e 'won\|AGAINST'
+		done
+	done
+done

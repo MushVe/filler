@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/23 04:46:28 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 01:47:59 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct			s_p
 	t_axis				new_tmp;
 	t_axis				best_tmp;
 	t_axis				best_final;
+	int					end;
 	int					**hit_map;
 	int					res_fd;
 	int					data_fd;

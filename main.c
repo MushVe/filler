@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 06:42:17 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/23 04:52:45 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:43:25 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init(t_p *p)
 
 void	init_once(t_p *p)
 {
+	p->end = 0;
 	p->board.data = NULL;
 	p->board.length = 0;
 	p->board.height = 0;
@@ -79,6 +80,7 @@ int		main(void)
 {
 	t_p p;
 
+//	ft_printf("000\n");
 	if (-1 == (p.res_fd = open("res", O_WRONLY | O_CREAT | O_TRUNC)))
 		return (0);
 	if (-1 == (p.data_fd = open("data", O_WRONLY | O_CREAT | O_TRUNC)))
