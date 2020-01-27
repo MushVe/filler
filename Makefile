@@ -6,11 +6,11 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2020/01/27 03:43:44 by cseguier         ###   ########.fr        #
+#    Updated: 2020/01/27 05:24:38 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = players/cseguier.filler
+NAME = players/cseguier.filler #cseguier.filler
 
 LIBFT = libft/libftprintf.a
 

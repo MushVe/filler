@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 05:54:24 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/17 03:20:31 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 05:25:50 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		*create_piece(t_p *p)
 {
+//	ft_printf("content %p\n", p->piece.content);
 	p->piece.content = ft_memalloc(sizeof(char*) * (p->piece.height + 1));
 	return (p->piece.content);
 }

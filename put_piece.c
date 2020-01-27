@@ -6,24 +6,15 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 01:45:44 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/27 03:32:11 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 04:49:17 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	doubleprint(char **s, t_p *p)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		dprintf(p->res_fd, "\t> %s\n", s[i]);
-}
-
 static void	fill_hit_map(t_p *p, int turn)
 {
-	int i;
+	int	i;
 	int	x;
 	int	y;
 
@@ -40,31 +31,13 @@ static void	fill_hit_map(t_p *p, int turn)
 	}
 }
 
-// void	print_a_double_grid_of_integer(int **the_double_grid_of_tingle, int height, int length, int fd)
-// {
-// 	for (int i = 0; i < height; i++)
-// 	{
-// 		for (int j = 0; j < length; j++)
-// 		{
-// 			dprintf(fd, "\t%d", the_double_grid_of_tingle[i][j]);
-// 		}
-// 		dprintf(fd, "\n");
-// 	}
-	
-// 	dprintf(fd, "\n");
-	
-// }
-
-// The Leaks Kingdoms of Realm Empire
-int create_hit_map(t_p *p, int turn)
+int			create_hit_map(t_p *p, int turn)
 {
-	int length;
-	int height;
+	int	length;
+	int	height;
 
 	length = p->board.length;
 	height = p->board.height;
-	
-	//Calloc == ft_memalloc
 	if (p->hit_map == NULL)
 	{
 		p->hit_map = ft_memalloc(sizeof(int *) * height);
@@ -75,26 +48,21 @@ int create_hit_map(t_p *p, int turn)
 			p->hit_map[i] = ft_memalloc(sizeof(int) * length);
 			if (p->hit_map[i] == NULL)
 				return (0);
-
 		}
 	}
-	
 	fill_hit_map(p, turn);
-	// print_a_double_grid_of_integer(p->hit_map, height, length, p->res_fd);
 	return (1);
 }
 
-//count_piece_size_enemy
-int dracula(t_p *p, int newest)
+int			dracula(t_p *p, int newest)
 {
-	int i;
-	int j;
-	int cpt;
+	int	i;
+	int	j;
+	int	cpt;
 
 	i = -1;
 	j = -1;
 	cpt = 0;
-	// dprintf(p->res_fd, "newest %d\n", newest);
 	while (++i < p->board.height)
 	{
 		while (++j < p->board.length)
@@ -104,29 +72,17 @@ int dracula(t_p *p, int newest)
 		}
 		j = -1;
 	}
-
-	// dprintf(p->res_fd, "cpt %d\n", cpt);
 	return (cpt);
 }
 
-/**
- * Remember to free the t_axis returned by this fuction
- * /!\ Possible error with the coord system
- * if (hit_map[y][x] == newest)
-			{
-				enemy_coord[cpt].x = x;
-				enemy_coord[cpt].y = y;
-			}
- * tread carefully
- */
-t_axis *find_newest_enemy(t_p *p, int newest)
+t_axis		*find_newest_enemy(t_p *p, int newest)
 {
-	int height; 
-	int length;
-	int x;
-	int y;
-	int cpt;
-	t_axis *enemy_coord;
+	int		height; 
+	int		length;
+	int		x;
+	int		y;
+	int		cpt;
+	t_axis	*enemy_coord;
 	
 	height = p->board.height;
 	length = p->board.length;
@@ -144,18 +100,17 @@ t_axis *find_newest_enemy(t_p *p, int newest)
 		{
 			if (p->hit_map[x][y] == newest)
 			{
-				
 				enemy_coord[cpt].x = x;
 				enemy_coord[cpt].y = y;
 				if (cpt + 1 < p->piece_size)
 					cpt++;
-			}		
+			}
 		}
 	}
 	return (enemy_coord);
 }
 
-int is_closer_heuristic_one(t_p *p, t_axis *enemy_coord, int enemy_coord_size, t_axis *best_distance)
+int		is_closer_heuristic_one(t_p *p, t_axis *enemy_coord, int enemy_coord_size, t_axis *best_distance)
 {
 	t_axis	valid_pos;
 	t_axis	abs_distance;
@@ -194,7 +149,7 @@ void	find_best_location(t_p *p, int turn)
 		p->board.axis.y = -1;
 		while (++p->board.axis.y < p->board.length)
 		{
-			if (can_put_piece(p) == 1) // new_tmp affectect here
+			if (can_put_piece(p) == 1)
 			{
 				if (!(enemy_coord = find_newest_enemy(p, turn)))
 					return ;
@@ -204,16 +159,11 @@ void	find_best_location(t_p *p, int turn)
 					p->best_final.y = p->new_tmp.y;
 				}
 			}
+			ft_memdel((void*)&enemy_coord);
 		}
 	}
-	ft_memdel((void*)&enemy_coord);
 }
 
-/**
- * turn isnt incremented, as it isnt 
- * a static variable anymore
- * print the map to see what happens
- */
 int		put_piece(t_p *p)
 {
 	int turn = 1;
@@ -225,4 +175,3 @@ int		put_piece(t_p *p)
 	turn++;
 	return (0);
 }
-

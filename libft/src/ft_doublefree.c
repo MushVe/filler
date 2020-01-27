@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 04:25:40 by cseguier          #+#    #+#             */
-/*   Updated: 2019/11/22 04:42:39 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 05:22:02 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void ft_doublefree(char **s)
 
 	i = -1;
 	while (s[++i])
-		ft_memdel((void*)&s[i]);
-	ft_memdel((void*)&s);
+		free(s[i]);
+	free(s);
+}
+
+void ft_doublefree_int(int **s, int tamer)
+{
+	int	i;
+
+	i = -1;
+	while (++i < tamer)
+		free(s[i]);
+	free(s);
 }

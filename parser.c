@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/27 03:43:34 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 05:25:27 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ int		init_board(char *line, t_p *p)
 
 void	reset_everything(t_p *p)
 {
-// 	ft_memdel((void*)&p->tab);
+//	ft_printf("reset called\n");
 	ft_doublefree(p->piece.content);
 	ft_doublefree(p->board.grid);
+	ft_memdel((void*)&p->board.data);
 	init(p);
 }
 
@@ -89,7 +90,6 @@ int		parser(t_p *p)
 	line = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		// dprintf(p->res_fd, "%s\n", line);
 		if (ft_strstr(line, " fin: "))
 			return (0);
 		if (ft_strstr(line, "$$$ exec"))
@@ -102,15 +102,11 @@ int		parser(t_p *p)
 			get_piece_content(line, p);
 		if (p->piece.cpt == 0 && p->piece.it != 0 && p->end == 0)
 		{
-			// dprintf(p->res_fd, "Enter if\n");
+	//		ft_printf("help\n");
 			p->piece.it = 0;
-			// dprintf(p->res_fd, "before get max size\n");
 			get_max_size(p);
-			// dprintf(p->res_fd, "before put piece\n");
 			put_piece(p);
-			// dprintf(p->res_fd, "after print\n");
 			reset_everything(p);
-			printlist(p);
 		}
 		if (ft_strstr(line, "Piece"))
 			get_piece_size(line, p);
