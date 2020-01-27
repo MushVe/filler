@@ -6,7 +6,7 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2020/01/27 05:24:38 by cseguier         ###   ########.fr        #
+#    Updated: 2020/01/27 06:36:59 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,29 +14,24 @@ NAME = players/cseguier.filler #cseguier.filler
 
 LIBFT = libft/libftprintf.a
 
-FILE = main.c node.c parser.c put_piece.c get_piece.c can_put_piece.c \
-	fill_board.c
-#display.c
-
-#FILE = filler.c
+FILE = main.c parser.c put_piece.c get_piece.c can_put_piece.c \
+	fill_board.c hit_map.c get_board.c init_and_reset.c
 
 INC = -I libft 
 
 SRC = $(FILE:%=%)
 OBJ = $(FILE:%.c=objs/%.o)
 
-FLAG = -Wall -Werror -Wextra #-g3 -fsanitize=address 
+FLAG = -Wall -Werror -Wextra # -fsanitize=address -g3
 CC = gcc $(FLAG) $(INC)
 
 RM = rm -rf
 
-# LSDL = -I display/include -L display/lib -l SDL2-2.0.0
-
-all: $(NAME)
+all: $(NAME) display
 
 $(NAME) : $(LIBFT) $(OBJ)
 		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf 
-#		@echo "\n\									$(LSDL)
+#
 #                        ..\n\
 #                      / __)  Done.\n\
 #               .-^^^-/ /\n\
@@ -49,6 +44,10 @@ $(LIBFT) :
 objs/%.o: %.c
 		@mkdir -p objs
 		@$(CC) $(INC) -o $@ -c $<
+		
+
+display: display.c
+	@gcc -o display display.c -I display/include -L display/lib -l SDL2-2.0.0
 
 clean:
 		@$(RM) $(OBJ)

@@ -6,48 +6,11 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 06:39:48 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/27 05:25:27 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 06:19:46 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-int		get_board_size(char *line, t_p *p)
-{
-	int	i;
-
-	i = -1;
-	while (!(ft_isdigit(line[++i])))
-		;
-	p->board.height = ft_atoi(line + i);
-	while (line[++i] != ' ')
-		;
-	p->board.length = ft_atoi(line + i);
-	return (p->board.length * p->board.height);
-}
-
-int		get_board_data(char *line, t_p *p)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i] != '\0')
-	{
-		if (!(ft_isdigit(line[i])) && line[i] != ' ' && line[i] != '.')
-		{
-			p->board.data[p->board.cpt].player = line[i];
-			p->board.data[p->board.cpt].axis.x = (i - 4);
-			p->board.data[p->board.cpt].axis.y = ft_atoi(line);
-			p->board.cpt++;
-		}
-	}
-	if (p->board.cpt == p->board.size)
-	{
-		p->end = 1;
-		ft_printf("0 0\n");
-	}
-	return (0);
-}
 
 void	get_players(char *line, t_p *p)
 {
@@ -72,13 +35,19 @@ int		init_board(char *line, t_p *p)
 	return (0);
 }
 
-void	reset_everything(t_p *p)
+int		get_infos(t_p *p, char *line)
 {
-//	ft_printf("reset called\n");
-	ft_doublefree(p->piece.content);
-	ft_doublefree(p->board.grid);
-	ft_memdel((void*)&p->board.data);
-	init(p);
+	if (ft_strstr(line, " fin: "))
+		return (0);
+	if (ft_strstr(line, "$$$ exec"))
+		get_players(line, p);
+	if (p->board.size == 0 && ft_strstr(line, "Plateau"))
+		init_board(line, p);
+	if (ft_isdigit(line[0]))
+		get_board_data(line, p);
+	if (p->piece.cpt > 0)
+		get_piece_content(line, p);
+	return (1);
 }
 
 int		parser(t_p *p)
@@ -90,19 +59,10 @@ int		parser(t_p *p)
 	line = NULL;
 	while (0 < (i = get_next_line(0, &line)))
 	{
-		if (ft_strstr(line, " fin: "))
+		if (!(get_infos(p, line)))
 			return (0);
-		if (ft_strstr(line, "$$$ exec"))
-			get_players(line, p);
-		if (p->board.size == 0 && ft_strstr(line, "Plateau"))
-			init_board(line, p);
-		if (ft_isdigit(line[0]))
-			get_board_data(line, p);
-		if (p->piece.cpt > 0)
-			get_piece_content(line, p);
 		if (p->piece.cpt == 0 && p->piece.it != 0 && p->end == 0)
 		{
-	//		ft_printf("help\n");
 			p->piece.it = 0;
 			get_max_size(p);
 			put_piece(p);

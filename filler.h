@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:22:41 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/27 04:28:41 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/01/27 06:32:33 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,28 @@ typedef struct			s_p
 	int					**hit_map;
 	int					res_fd;
 	int					data_fd;
-	int 				piece_size;
+	int					piece_size;
 }						t_p;
 
-int		display(t_p *p);
-void	init(t_p *p);
-int 	parser(t_p *p);
-int		new_node(t_p *p);
-void 	init_tab(t_p *p);
-int		fill_board(t_p *p);
-// void	printlist(t_p *p);
-int		get_piece_size(char *line, t_p *p);
-int		get_piece_content(char *line, t_p *p);
-int		put_piece(t_p *p);
-int		can_put_piece(t_p *p);
-int		get_board_size(char *line, t_p *p);
-int		get_max_size(t_p *p);
-int		get_board_data(char *line, t_p *p);
-
-// extern t_lst_data *last_elem;
+int						display(t_p *p);
+void					init(t_p *p);
+int						parser(t_p *p);
+void					init_tab(t_p *p);
+void					init_once(t_p *p);
+void					end_free(t_p *p);
+void					reset_everything(t_p *p);
+int						fill_board(t_p *p);
+int						get_piece_size(char *line, t_p *p);
+int						get_piece_content(char *line, t_p *p);
+int						put_piece(t_p *p);
+int						can_put_piece(t_p *p);
+int						get_board_size(char *line, t_p *p);
+int						get_max_size(t_p *p);
+int						get_board_data(char *line, t_p *p);
+t_axis					*find_newest_enemy(t_p *p, int newest);
+int						create_hit_map(t_p *p, int turn);
+void					fill_hit_map(t_p *p, int turn);
+int						get_board_size(char *line, t_p *p);
+int						get_board_data(char *line, t_p *p);
 
 #endif
