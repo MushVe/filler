@@ -2,6 +2,7 @@
 *.a
 cseguier.filler
 filler.trace
+dis.play
 .vscode/
 camO
 res

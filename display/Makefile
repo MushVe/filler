@@ -6,54 +6,34 @@
 #    By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 13:00:08 by cseguier          #+#    #+#              #
-#    Updated: 2020/01/28 01:36:03 by cseguier         ###   ########.fr        #
+#    Updated: 2020/01/28 01:36:36 by cseguier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = players/cseguier.filler #cseguier.filler
+NAME = ../dis.play
 
-LIBFT = libft/libftprintf.a
+FILE = display.c
 
-DISPLAY = dis.play
-
-FILE = main.c parser.c put_piece.c get_piece.c can_put_piece.c \
-	fill_board.c hit_map.c get_board.c init_and_reset.c
-
-INC = -I libft 
+INC = -I include -L lib -l SDL2-2.0.0
 
 SRC = $(FILE:%=%)
-OBJ = $(FILE:%.c=objs/%.o)
+OBJ = $(FILE:%.c=%.o)
 
-FLAG = -Wall -Werror -Wextra # -fsanitize=address -g3
-CC = gcc $(FLAG) $(INC)
+CC = gcc
 
 RM = rm -rf
 
 all: $(NAME)
 
-$(NAME) : $(LIBFT) $(DISPLAY) $(OBJ)
-		@$(CC) -o $@ $(OBJ) -L libft/ -lftprintf 
-
-$(LIBFT) :
-		@make -C libft/ all
-
-$(DISPLAY) :
-		@make -C display/ all
-
-objs/%.o: %.c
-		@mkdir -p objs
-		@$(CC) $(INC) -o $@ -c $<
+$(NAME) : $(SRC)
+		@$(CC) -o $(NAME) $(SRC) $(INC)
 
 clean:
 		@$(RM) $(OBJ)
 		@rm -rf objs
-		@make -C libft/ clean
-		@make -C display/ clean
 
 fclean: clean
 		@$(RM) $(NAME)
-		@make -C libft/ fclean
-		@make -C display/ fclean
 
 re: fclean all
 
