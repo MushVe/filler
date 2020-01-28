@@ -1,5 +1,6 @@
 *.o
 *.a
+a.out
 cseguier.filler
 filler.trace
 dis.play
