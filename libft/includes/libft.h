@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:13:11 by cseguier          #+#    #+#             */
-/*   Updated: 2020/01/27 04:33:31 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/02/08 02:39:44 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-
 typedef struct	s_gnl
 {
 	struct s_gnl	*next;
@@ -41,7 +40,7 @@ void			ft_bzero(void *s, size_t n);
 char			*ft_capitalize(char *str);
 void			ft_doublefree(char **s);
 void			ft_doublefree_int(int **s, int size);
-void 			ft_doubleprint(char **s);
+void			ft_doubleprint(char **s);
 void			ft_foreach(int *tab, size_t lenght, void (*f)(int));
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);

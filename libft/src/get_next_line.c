@@ -6,7 +6,7 @@
 /*   By: cseguier <cseguier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/12 14:29:40 by snedir            #+#    #+#             */
-/*   Updated: 2020/01/27 04:16:55 by cseguier         ###   ########.fr       */
+/*   Updated: 2020/02/08 02:37:56 by cseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		read_mem(int fd, char *buf, t_gnl *control, char **line)
 	return (0);
 }
 
-int				get_next_line(int const fd, char **line)
+int		get_next_line(int const fd, char **line)
 {
 	static t_gnl	*control = NULL;
 	char			buf[GNL_BUFF_SIZE + 1];
